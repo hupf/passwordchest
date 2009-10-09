@@ -197,48 +197,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>3BBA81F21078C64F00013D69</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>vault.py</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>3BBA81F31078C64F00013D69</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>vault.py</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>3BF576C810794939008E8595</string>
-						<key>history</key>
-						<array>
-							<string>3BBA845210791FB000013D69</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {852, 686}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>990 451 852 727 0 0 1920 1178 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -311,12 +270,13 @@
 								<string>29B97315FDCFA39411CA2CEA</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>3BAE89F1107F97200071CE06</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>17</integer>
+									<integer>15</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -359,7 +319,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>EntryWindowController.py</string>
+								<string>PCDocument.py</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -367,31 +327,30 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>EntryWindowController.py</string>
+										<string>PCDocument.py</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>3BF576C710794939008E8595</string>
+										<string>3BAE8B3E107FEC790071CE06</string>
 										<key>history</key>
 										<array>
-											<string>3B387BAE106D7A8E0081CC64</string>
-											<string>3B387BAF106D7A8E0081CC64</string>
-											<string>3B387BB0106D7A8E0081CC64</string>
-											<string>3B1ED4D2106F91580056082F</string>
-											<string>3B1ED4D3106F91580056082F</string>
 											<string>3B1ED5BB106FDB9E0056082F</string>
 											<string>3B1ED5BC106FDB9E0056082F</string>
 											<string>3B1ED5BD106FDB9E0056082F</string>
 											<string>3B1ED5BE106FDB9E0056082F</string>
 											<string>3BBA81EC1078C64F00013D69</string>
 											<string>3BBA81ED1078C64F00013D69</string>
-											<string>3BBA83211078F80500013D69</string>
-											<string>3BF575A8107933AD008E8595</string>
-											<string>3BF5761D10794251008E8595</string>
-											<string>3BF5761E10794251008E8595</string>
-											<string>3BF5761F10794251008E8595</string>
-											<string>3BF576C510794939008E8595</string>
-											<string>3BF576C610794939008E8595</string>
+											<string>3BAE8A7B107FBA680071CE06</string>
+											<string>3BAE8AC6107FDE270071CE06</string>
+											<string>3BAE8AC7107FDE270071CE06</string>
+											<string>3BAE8AC9107FDE270071CE06</string>
+											<string>3BAE8ACA107FDE270071CE06</string>
+											<string>3BAE8ACB107FDE270071CE06</string>
+											<string>3BAE8AD7107FDFEC0071CE06</string>
+											<string>3BAE8B29107FEA0E0071CE06</string>
+											<string>3BAE8B2A107FEA0E0071CE06</string>
+											<string>3BAE8B37107FEB8E0071CE06</string>
+											<string>3BAE8B38107FEB8E0071CE06</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -449,9 +408,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>3BF575AD107933AD008E8595</string>
+				<string>3BAE89F6107F97200071CE06</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>3BF575AE107933AD008E8595</string>
+				<string>3BAE89F7107F97200071CE06</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -589,15 +548,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>3BF576C910794939008E8595</string>
-		<string>3BF575B8107933AD008E8595</string>
-		<string>3BF575B9107933AD008E8595</string>
+		<string>3BAE8B3F107FEC790071CE06</string>
+		<string>3BAE89FA107F97200071CE06</string>
+		<string>3BAE89FB107F97200071CE06</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>3BA96443106D6FE000C66D59</string>
-		<string>3BBA81F21078C64F00013D69</string>
 		<string>1C78EAAD065D492600B07095</string>
-		<string>/Users/hupf/Development/PasswordChest/PasswordChest.xcodeproj</string>
+		<string>/Users/hupf/Development/passwordchest/PasswordChest.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>33 128 1353 1050 0 0 1920 1178 </string>
@@ -630,7 +587,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {500, 218}}</string>
 								<key>RubberWindowFrame</key>
-								<string>82 932 500 500 0 0 1920 1178 </string>
+								<string>82 678 500 500 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -638,6 +595,8 @@
 							<string>218pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -654,7 +613,7 @@
 								<key>Frame</key>
 								<string>{{0, 223}, {500, 236}}</string>
 								<key>RubberWindowFrame</key>
-								<string>82 932 500 500 0 0 1920 1178 </string>
+								<string>82 678 500 500 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -677,7 +636,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>3BA96443106D6FE000C66D59</string>
-				<string>3BF5758C10792157008E8595</string>
+				<string>3BAE89E9107F971E0071CE06</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -686,7 +645,7 @@
 			<key>WindowContentMinSize</key>
 			<string>486 300</string>
 			<key>WindowString</key>
-			<string>82 932 500 500 0 0 1920 1178 </string>
+			<string>82 678 500 500 0 0 1920 1178 </string>
 			<key>WindowToolGUID</key>
 			<string>3BA96443106D6FE000C66D59</string>
 			<key>WindowToolIsVisible</key>
@@ -799,13 +758,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>3BF575B0107933AD008E8595</string>
+				<string>3BAE89EA107F971E0071CE06</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>3BF575B1107933AD008E8595</string>
-				<string>3BF575B2107933AD008E8595</string>
-				<string>3BF575B3107933AD008E8595</string>
-				<string>3BF575B4107933AD008E8595</string>
-				<string>3BF575B5107933AD008E8595</string>
+				<string>3BAE89EB107F971E0071CE06</string>
+				<string>3BAE89EC107F971E0071CE06</string>
+				<string>3BAE89ED107F971E0071CE06</string>
+				<string>3BAE89EE107F971E0071CE06</string>
+				<string>3BAE89EF107F971E0071CE06</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -961,7 +920,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>3BF575B6107933AD008E8595</string>
+				<string>3BAE89F0107F971E0071CE06</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

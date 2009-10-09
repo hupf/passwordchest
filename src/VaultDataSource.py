@@ -1,5 +1,5 @@
 #
-#  datasource.py
+#  VaultDataSource.py
 #  Password Chest
 #
 #  Created by Mathis Hofer on 25.09.09.
@@ -8,6 +8,7 @@
 
 from objc import YES, NO, IBAction, IBOutlet
 from Foundation import *
+from CoreData import *
 from AppKit import *
 from loxodo.vault import Vault
 
@@ -39,18 +40,18 @@ class RecordGroupNode(NSObject):
 
 
 NSOutlineViewDataSource = objc.protocolNamed('NSOutlineViewDataSource')
-class ListDataSource(NSObject, NSOutlineViewDataSource):
-    mainWindowController = None
+class VaultDataSource(NSObject, NSOutlineViewDataSource):
+    document = None
     vault = None
     records = {}
 
-    def initWithMainWindowController_(self, mainWindowController):
-        self = super(ListDataSource, self).init()
+    def initWithPCDocument_(self, document):
+        self = super(VaultDataSource, self).init()
         if self is None: return None
 
-        self.mainWindowController = mainWindowController
-        self.vault = mainWindowController.vault
-        self.updateRecords()
+        self.document = document
+        self.vault = document.vault
+        self.updateRecordsFromVault()
         
         return self
     
@@ -72,17 +73,27 @@ class ListDataSource(NSObject, NSOutlineViewDataSource):
     
     def outlineView_setObjectValue_forTableColumn_byItem_(self, outlineView, object, tableColumn, item):
         #item.rename(object)
-        #self.mainWindowController.updateEntryInfo(item.entry)
+        #self.document.updateEntryInfo(item.entry)
         pass
     
     #def outlineView_shouldEditTableColumn_item_(self, outlineView, tableColumn, item):
     #    if isinstance(item, RecordNode):
-    #        self.mainWindowController.editEntry(item.record)
+    #        self.document.editEntry(item.record)
     
     def outlineViewSelectionDidChange_(self, notification):
-        self.mainWindowController.updateInfo()
+        self.document.selectionChanged()
     
-    def updateRecords(self):
+    #def addRecord_(record):
+    #    self.vault.records.append(record)
+    #    self.vault.modified = True
+        
+    #def removeRecord_(record):
+    #    pass
+    
+    #def updateRecord_withOldRecord_(record, oldRecord):
+    #    pass
+    
+    def updateRecordsFromVault(self):
         # sort vault records by group then by title
         def comp(r1, r2):
             if r1._get_group() == r2._get_group():

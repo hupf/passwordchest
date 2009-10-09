@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="81"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -730,9 +730,6 @@
 				</object>
 				<string key="NSName">_NSMainMenu</string>
 			</object>
-			<object class="NSCustomObject" id="610635028">
-				<string key="NSClassName">PasswordChestAppDelegate</string>
-			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -1026,36 +1023,20 @@
 					<int key="connectionID">370</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="1050"/>
-						<reference key="destination" ref="610635028"/>
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openDocument:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="722745758"/>
 					</object>
-					<int key="connectionID">374</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="720053764"/>
-						<reference key="destination" ref="610635028"/>
-					</object>
-					<int key="connectionID">440</int>
+					<int key="connectionID">443</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">newDocument:</string>
-						<reference key="source" ref="610635028"/>
+						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="705341025"/>
 					</object>
-					<int key="connectionID">441</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">openDocument:</string>
-						<reference key="source" ref="610635028"/>
-						<reference key="destination" ref="722745758"/>
-					</object>
-					<int key="connectionID">442</int>
+					<int key="connectionID">444</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1626,12 +1607,6 @@
 						<reference key="object" ref="708854459"/>
 						<reference key="parent" ref="698887838"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">373</int>
-						<reference key="object" ref="610635028"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">PasswordChestAppDelegate</string>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1651,6 +1626,7 @@
 					<string>112.ImportedFromIB2</string>
 					<string>124.IBPluginDependency</string>
 					<string>124.ImportedFromIB2</string>
+					<string>125.IBEditorWindowLastContentRect</string>
 					<string>125.IBPluginDependency</string>
 					<string>125.ImportedFromIB2</string>
 					<string>125.editorWindowContentRectSynchronizationRect</string>
@@ -1824,6 +1800,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
+					<string>{{670, 1051}, {143, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{320, 773}, {146, 23}}</string>
@@ -1999,7 +1976,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">442</int>
+			<int key="maxID">444</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2014,6 +1991,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PasswordChestAppDelegate</string>
+					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">openDocument:</string>
 						<string key="NS.object.0">id</string>

@@ -8,7 +8,9 @@
 
 from objc import YES, NO, IBAction, IBOutlet
 from Foundation import *
+from CoreData import *
 from AppKit import *
+
 
 class PasswordDialogController(NSObject):
     passwordDialog = IBOutlet()

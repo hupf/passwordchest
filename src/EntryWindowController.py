@@ -8,11 +8,14 @@
 
 from objc import YES, NO, IBAction, IBOutlet
 from Foundation import *
+from CoreData import *
 from AppKit import *
 from loxodo.vault import Vault
 
+
 class EntryWindowController(NSObject):
-    mainWindowController = None
+    document = None
+    dataSource = None
     vault = None
     record = None
     
@@ -29,12 +32,13 @@ class EntryWindowController(NSObject):
     
     okButton = IBOutlet()
 
-    def initWithMainWindowController_(self, mainWindowController):
+    def initWithDocument_(self, document):
         self = super(EntryWindowController, self).init()
         if self is None: return None
         
-        self.mainWindowController = mainWindowController
-        self.vault = mainWindowController.vault
+        self.document = document
+        self.dataSource = document.dataSource
+        self.vault = document.vault
         NSBundle.loadNibNamed_owner_("EntryWindow", self)
         
         return self
@@ -89,19 +93,18 @@ class EntryWindowController(NSObject):
             self.notesField.setString_(self.record._get_notes())
     
     def _fillRecordFromFields(self):
-        if not self.record:
-            self.record = Vault.Record.create()
-        self.record._set_group(self.groupCombo.stringValue())
-        self.record._set_title(self.titleField.stringValue())
-        self.record._set_user(self.userField.stringValue())
-        self.record._set_passwd(self.passwordField.stringValue())
-        self.record._set_url(self.urlField.stringValue())
-        self.record._set_notes(self.notesField.string())
-        self.record.mark_modified()
+        if self.record:
+            self.record._set_group(self.groupCombo.stringValue())
+            self.record._set_title(self.titleField.stringValue())
+            self.record._set_user(self.userField.stringValue())
+            self.record._set_passwd(self.passwordField.stringValue())
+            self.record._set_url(self.urlField.stringValue())
+            self.record._set_notes(self.notesField.string())
+            self.record.mark_modified()
     
     def _showDialog(self):
         NSApp.beginSheet_modalForWindow_modalDelegate_didEndSelector_contextInfo_(
-            self.entryWindow, self.mainWindowController.outlineView.window(),
+            self.entryWindow, self.document.outlineView.window(),
             self, None, None)
     
     def _closeDialog(self):
@@ -109,16 +112,18 @@ class EntryWindowController(NSObject):
         self.entryWindow.orderOut_(self)
     
     def ok_(self, sender):
-        edit = self.record is None
+        if self.record:
+            oldRecord = self.record
+        else:
+            self.record = Vault.Record.create()
         self._fillRecordFromFields()
-        if edit:
-            self.vault.records.append(self.record)
-        self.vault.modified = True
+        
+        #if oldRecord:
+        #    dataSource.updateRecord_withOldRecord_(self.record, oldRecord)
+        #else:
+        #    dataSource.addRecord_(self.record)
         
         self.record = None
-        self.mainWindowController.updateList()
-        self.mainWindowController.updateInfo()
-
         self._closeDialog()
     
     def cancel_(self, sender):

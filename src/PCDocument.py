@@ -1,77 +1,103 @@
 #
-#  MainWindowController.py
+#  PCDocument.py
 #  Password Chest
 #
-#  Created by Mathis Hofer on 25.09.09.
-#  Copyright (c) 2009 Mathis Hofer. All rights reserved.
+#  Created by Mathis Hofer on 09.10.09.
+#  Copyright Mathis Hofer 2009. All rights reserved.
 #
 
 from objc import YES, NO, IBAction, IBOutlet
 from Foundation import *
+from CoreData import *
 from AppKit import *
 from loxodo.vault import Vault
 import time
 
-from datasource import ListDataSource, RecordNode
+from VaultDataSource import VaultDataSource, RecordNode
+from PasswordDialogController import PasswordDialogController
 from EntryWindowController import EntryWindowController
 
-class MainWindowController(NSWindowController):
-    filename = None
+
+class PCDocument(NSDocument):
     vault = None
+    dataSource = None
+    entryWindowController = None
     
-    removeButton = IBOutlet()
-    
+    outlineView = IBOutlet()
+    infoView = IBOutlet()
     titleLabel = IBOutlet()
     usernameLabel = IBOutlet()
     urlLabel = IBOutlet()
     notesLabel = IBOutlet()
     lastModifiedLabel = IBOutlet()
-    infoView = IBOutlet()
-    outlineView = IBOutlet()
-    
-    dataSource = None
+    removeButton = IBOutlet()
 
     def init(self):
-        self = super(MainWindowController, self).init()
-        if self is None: return None
-        
-        self.vault = Vault('123456')
-        self.vault.modified = False
-        self.entryWindowController = EntryWindowController.alloc().initWithMainWindowController_(self)
-        
-        self = self.initWithWindowNibName_("MainWindow")
-        self.setWindowFrameAutosaveName_("MainWindow")
-        self.showWindow_(self)
-        self.retain()
-        
+        self = super(PCDocument, self).init()
         return self
+        
+    def windowNibName(self):
+        return u"PCDocument"
     
-    def initWithFilename_andVault_(self, filename, vault):
-        self = super(MainWindowController, self).init()
-        if self is None: return None
+    def windowControllerDidLoadNib_(self, aController):
+        super(PCDocument, self).windowControllerDidLoadNib_(aController)
         
-        self.filename = filename
-        self.vault = vault
-        self.vault.modified = False
-        self.entryWindowController = EntryWindowController.alloc().initWithMainWindowController_(self)
-        
-        self = self.initWithWindowNibName_("MainWindow")
-        self.setWindowFrameAutosaveName_("MainWindow")
-        self.showWindow_(self)
-        self.retain()
-        
-        return self
-
-    def windowDidLoad(self):
-        self.dataSource = ListDataSource.alloc().initWithMainWindowController_(self)
+        # user interface preparation code
+        self.entryWindowController = EntryWindowController.alloc().initWithDocument_(self)
+        self.dataSource = VaultDataSource.alloc().initWithPCDocument_(self)
         self.outlineView.setDataSource_(self.dataSource)
         self.outlineView.setDelegate_(self.dataSource)
         self.outlineView.setTarget_(self)
         self.outlineView.setDoubleAction_(self.listDoubleClicked_)
 
-    def windowWillClose_(self, notification):
-        self.autorelease()
+    def readFromFile_ofType_(self, path, type):
+        passwordDialogController = PasswordDialogController.alloc().init()
+        vault = None
+        error = None
+        while vault is None and error is None or error == Vault.BadPasswordError:
+            vault = None
+            error = None
+            password = passwordDialogController.askForPassword()
+            if password is None:
+                # user pressed cancel
+                break
+            try:
+                # try to open vault with given password
+                vault = Vault(password, filename=path)
+            except Vault.BadPasswordError:
+                error = Vault.BadPasswordError
+                
+                alert = NSAlert.alloc().init()
+                alert.setMessageText_("Bad password")
+                alert.setInformativeText_("Please try again.")
+                alert.setAlertStyle_(NSCriticalAlertStyle)
+                alert.runModal()
+            except Vault.VaultVersionError:
+                error = Vault.VaultVersionError
+                
+                alert = NSAlert.alloc().init()
+                alert.setMessageText_("Bad file version")
+                alert.setInformativeText_("This is not a PasswordSafe V3 file.")
+                alert.setAlertStyle_(NSCriticalAlertStyle)
+                alert.runModal()
+            except Vault.VaultFormatError:
+                error = Vault.VaultFormatError
+                
+                alert = NSAlert.alloc().init()
+                alert.setMessageText_("Bad file format")
+                alert.setInformativeText_("File integrity check failed.")
+                alert.setAlertStyle_(NSCriticalAlertStyle)
+                alert.runModal()
+        if vault and error is None:
+            self.vault = vault
+            return True
+        else:
+            self.vault = None
+            return False
 
+    def writeToFile_ofType_(self, path, tp):
+        return False
+    
     def addEntry_(self, sender):
         self.entryWindowController.showAddDialog()
     
