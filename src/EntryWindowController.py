@@ -12,6 +12,8 @@ from CoreData import *
 from AppKit import *
 from loxodo.vault import Vault
 
+from VaultDataSource import RecordNode, RecordGroupNode
+
 
 class EntryWindowController(NSObject):
     document = None
@@ -48,6 +50,14 @@ class EntryWindowController(NSObject):
         self._updateGroupCombo()
         self._resetFields()
         self.okButton.setTitle_('Add')
+        
+        index = self.document.outlineView.selectedRow()
+        if index != -1:
+            item = self.document.outlineView.itemAtRow_(index)
+            if isinstance(item, RecordNode):
+                self.groupCombo.setStringValue_(item.record._get_group())
+            elif isinstance(item, RecordGroupNode):
+                self.groupCombo.setStringValue_(item._get_title())
         
         self._showDialog()
     
@@ -104,7 +114,7 @@ class EntryWindowController(NSObject):
     
     def _showDialog(self):
         NSApp.beginSheet_modalForWindow_modalDelegate_didEndSelector_contextInfo_(
-            self.entryWindow, self.document.outlineView.window(),
+            self.entryWindow, self.document.windowForSheet(),
             self, None, None)
     
     def _closeDialog(self):
@@ -112,16 +122,16 @@ class EntryWindowController(NSObject):
         self.entryWindow.orderOut_(self)
     
     def ok_(self, sender):
-        if self.record:
-            oldRecord = self.record
-        else:
+        edit = True
+        if not self.record:
+            edit = False
             self.record = Vault.Record.create()
         self._fillRecordFromFields()
         
-        #if oldRecord:
-        #    dataSource.updateRecord_withOldRecord_(self.record, oldRecord)
-        #else:
-        #    dataSource.addRecord_(self.record)
+        if edit:
+            self.document.dataSource.recordUpdated_(self.record)
+        else:
+            self.document.dataSource.addRecord_(self.record)
         
         self.record = None
         self._closeDialog()

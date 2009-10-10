@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="367"/>
+			<integer value="368"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -625,22 +625,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">addEntry:</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="574581338"/>
-					</object>
-					<int key="connectionID">524</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">removeEntry:</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="143578352"/>
-					</object>
-					<int key="connectionID">525</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">copyPassword:</string>
 						<reference key="source" ref="1021"/>
 						<reference key="destination" ref="963302226"/>
@@ -710,6 +694,22 @@
 						<reference key="destination" ref="513744381"/>
 					</object>
 					<int key="connectionID">693</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addRecord:</string>
+						<reference key="source" ref="1021"/>
+						<reference key="destination" ref="574581338"/>
+					</object>
+					<int key="connectionID">694</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removeRecord:</string>
+						<reference key="source" ref="1021"/>
+						<reference key="destination" ref="143578352"/>
+					</object>
+					<int key="connectionID">695</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1203,7 +1203,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">693</int>
+			<int key="maxID">695</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1286,9 +1286,9 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addEntry:</string>
+							<string>addRecord:</string>
 							<string>copyPassword:</string>
-							<string>removeEntry:</string>
+							<string>removeRecord:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>

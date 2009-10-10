@@ -13,7 +13,7 @@ from AppKit import *
 from loxodo.vault import Vault
 import time
 
-from VaultDataSource import VaultDataSource, RecordNode
+from VaultDataSource import VaultDataSource, RecordNode, RecordGroupNode
 from PasswordDialogController import PasswordDialogController
 from EntryWindowController import EntryWindowController
 
@@ -98,17 +98,20 @@ class PCDocument(NSDocument):
     def writeToFile_ofType_(self, path, tp):
         return False
     
-    def addEntry_(self, sender):
+    def addRecord_(self, sender):
         self.entryWindowController.showAddDialog()
     
-    def editEntry_(self, record):
+    def editRecord_(self, record):
         self.entryWindowController.showEditDialog_(record)
     
-    def editSelectedEntry_(self, sender):
-        pass
-    
-    def removeEntry_(self, sender):
-        pass
+    def removeRecord_(self, sender):
+        index = self.outlineView.selectedRow()
+        if index != -1:
+            item = self.outlineView.itemAtRow_(index)
+            if isinstance(item, RecordNode):
+                self.dataSource.removeRecord_(item.record)
+            elif isinstance(item, RecordGroupNode):
+                self.dataSource.removeGroup_(item)
     
     def copyPassword_(self, sender):
         pass
@@ -116,10 +119,6 @@ class PCDocument(NSDocument):
     def selectionChanged(self):
         self.updateInfo()
         self.removeButton.setEnabled_(self.outlineView.numberOfSelectedRows() != 0)
-    
-    def updateList(self):
-        self.dataSource.updateRecordsFromVault()
-        self.outlineView.reloadData()
     
     def updateInfo(self):
         record = None
@@ -153,4 +152,4 @@ class PCDocument(NSDocument):
         if index != -1:
             item = self.outlineView.itemAtRow_(index)
             if isinstance(item, RecordNode):
-                self.editEntry_(item.record)
+                self.editRecord_(item.record)
