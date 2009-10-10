@@ -19,7 +19,10 @@ from EntryWindowController import EntryWindowController
 
 
 class PCDocument(NSDocument):
+    isNewFile = True
     vault = None
+    password = None
+    
     dataSource = None
     entryWindowController = None
     
@@ -34,7 +37,14 @@ class PCDocument(NSDocument):
 
     def init(self):
         self = super(PCDocument, self).init()
+        if self.isNewFile:
+            self.vault = Vault('123456')
         return self
+    
+    def initWithContentsOfURL_ofType_error_(self, url, type, errorInfo):
+        (self, errorInfo) = super(PCDocument, self).initWithContentsOfURL_ofType_error_(url, type, errorInfo)
+        self.isNewFile = False
+        return (self, errorInfo)
         
     def windowNibName(self):
         return u"PCDocument"
@@ -49,21 +59,24 @@ class PCDocument(NSDocument):
         self.outlineView.setDelegate_(self.dataSource)
         self.outlineView.setTarget_(self)
         self.outlineView.setDoubleAction_(self.listDoubleClicked_)
-
-    def readFromFile_ofType_(self, path, type):
+    
+    def readFromURL_ofType_error_(self, url, type, errorInfo):
+        if not url.isFileURL():
+            return (False, errorInfo)
+        
         passwordDialogController = PasswordDialogController.alloc().init()
         vault = None
         error = None
         while vault is None and error is None or error == Vault.BadPasswordError:
             vault = None
             error = None
-            password = passwordDialogController.askForPassword()
-            if password is None:
+            self.password = passwordDialogController.askForPassword()
+            if self.password is None:
                 # user pressed cancel
                 break
             try:
                 # try to open vault with given password
-                vault = Vault(password, filename=path)
+                vault = Vault(self.password, filename=url.path())
             except Vault.BadPasswordError:
                 error = Vault.BadPasswordError
                 
@@ -90,13 +103,27 @@ class PCDocument(NSDocument):
                 alert.runModal()
         if vault and error is None:
             self.vault = vault
-            return True
+            return (True, errorInfo)
         else:
             self.vault = None
-            return False
+            self.password = None
+            return (False, errorInfo)
 
-    def writeToFile_ofType_(self, path, tp):
-        return False
+    def writeToURL_ofType_error_(self, url, type, errorInfo):
+        if not url.isFileURL():
+            return (False, errorInfo)
+        
+        if self.isNewFile:
+            while self.password is None:
+                passwordDialogController = PasswordDialogController.alloc().init()
+                self.password = passwordDialogController.askForPassword()
+            self.isNewFile = False
+        self.vault.write_to_file(url.path(), self.password)
+        try:
+            self.vault.write_to_file(url.path(), self.password)
+            return (True, errorInfo)
+        except:
+            return (False, errorInfo)
     
     def addRecord_(self, sender):
         self.entryWindowController.showAddDialog()
