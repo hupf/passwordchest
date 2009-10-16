@@ -138,7 +138,17 @@ class PCDocument(NSDocument):
                 self.dataSource.removeGroup_(item)
     
     def copyPassword_(self, sender):
-        pass
+        record = None
+        index = self.outlineView.selectedRow()
+        if index != -1:
+            item = self.outlineView.itemAtRow_(index)
+            if isinstance(item, RecordNode):
+                record = item.record
+        if record:
+            pasteboard = NSPasteboard.generalPasteboard()
+            pasteboard.clearContents()
+            copiedObjects = NSArray.arrayWithObject_(record._get_passwd())
+            pasteboard.writeObjects_(copiedObjects)
     
     def selectionChanged(self):
         self.updateInfo()
