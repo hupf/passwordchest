@@ -43,7 +43,8 @@ class PCDocument(NSDocument):
     
     def initWithContentsOfURL_ofType_error_(self, url, type, errorInfo):
         (self, errorInfo) = super(PCDocument, self).initWithContentsOfURL_ofType_error_(url, type, errorInfo)
-        self.isNewFile = False
+        if self:
+            self.isNewFile = False
         return (self, errorInfo)
         
     def windowNibName(self):
@@ -87,20 +88,12 @@ class PCDocument(NSDocument):
                 alert.runModal()
             except Vault.VaultVersionError:
                 error = Vault.VaultVersionError
-                
-                alert = NSAlert.alloc().init()
-                alert.setMessageText_("Bad file version")
-                alert.setInformativeText_("This is not a PasswordSafe V3 file.")
-                alert.setAlertStyle_(NSCriticalAlertStyle)
-                alert.runModal()
+                errorInfo = NSError.errorWithDomain_code_userInfo_("PCError", -1,
+                    NSDictionary.dictionaryWithObject_forKey_("File is not a PasswordSafe V3 file.", NSLocalizedFailureReasonErrorKey))
             except Vault.VaultFormatError:
                 error = Vault.VaultFormatError
-                
-                alert = NSAlert.alloc().init()
-                alert.setMessageText_("Bad file format")
-                alert.setInformativeText_("File integrity check failed.")
-                alert.setAlertStyle_(NSCriticalAlertStyle)
-                alert.runModal()
+                errorInfo = NSError.errorWithDomain_code_userInfo_("PCError", -1,
+                    NSDictionary.dictionaryWithObject_forKey_("File integrity check failed.", NSLocalizedFailureReasonErrorKey))
         if vault and error is None:
             self.vault = vault
             return (True, errorInfo)
@@ -122,6 +115,10 @@ class PCDocument(NSDocument):
         try:
             self.vault.write_to_file(url.path(), self.password)
             return (True, errorInfo)
+        except Vault.VaultFormatError:
+            errorInfo = NSError.errorWithDomain_code_userInfo_("PCError", -1,
+                    NSDictionary.dictionaryWithObject_forKey_("File integrity check failed.", NSLocalizedFailureReasonErrorKey))
+            return (False, errorInfo)
         except:
             return (False, errorInfo)
     
