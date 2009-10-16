@@ -27,7 +27,8 @@ class EntryWindowController(NSObject):
     titleField = IBOutlet()
     userField = IBOutlet()
     passwordStrengthIndicator = IBOutlet()
-    passwordField = IBOutlet()
+    clearPasswordField = IBOutlet()
+    bulletPasswordField = IBOutlet()
     showPasswordButton = IBOutlet()
     urlField = IBOutlet()
     notesField = IBOutlet()
@@ -86,7 +87,10 @@ class EntryWindowController(NSObject):
         self.titleField.setStringValue_("")
         self.userField.setStringValue_("")
         self.passwordStrengthIndicator.setIntValue_(0)
-        self.passwordField.setStringValue_("")
+        self.clearPasswordField.setStringValue_("")
+        self.bulletPasswordField.setStringValue_("")
+        self.clearPasswordField.setHidden_(True)
+        self.bulletPasswordField.setHidden_(False)
         self.showPasswordButton.setState_(NSOffState)
         self.urlField.setStringValue_("")
         self.notesField.setString_("")
@@ -98,7 +102,8 @@ class EntryWindowController(NSObject):
             self.groupCombo.setStringValue_(self.record._get_group())
             self.titleField.setStringValue_(self.record._get_title())
             self.userField.setStringValue_(self.record._get_user())
-            self.passwordField.setStringValue_(self.record._get_passwd())
+            self.clearPasswordField.setStringValue_(self.record._get_passwd())
+            self.bulletPasswordField.setStringValue_(self.record._get_passwd())
             self.urlField.setStringValue_(self.record._get_url())
             self.notesField.setString_(self.record._get_notes())
     
@@ -107,7 +112,10 @@ class EntryWindowController(NSObject):
             self.record._set_group(self.groupCombo.stringValue())
             self.record._set_title(self.titleField.stringValue())
             self.record._set_user(self.userField.stringValue())
-            self.record._set_passwd(self.passwordField.stringValue())
+            if self.showPasswordButton.state() == NSOnState:
+                self.record._set_passwd(self.clearPasswordField.stringValue())
+            else:
+                self.record._set_passwd(self.bulletPasswordField.stringValue())
             self.record._set_url(self.urlField.stringValue())
             self.record._set_notes(self.notesField.string())
             self.record.mark_modified()
@@ -121,7 +129,30 @@ class EntryWindowController(NSObject):
         NSApp.endSheet_(self.entryWindow)
         self.entryWindow.orderOut_(self)
     
+    def togglePasswordVisibility_(self, sender):
+        if self.showPasswordButton.state() == NSOnState:
+            self.clearPasswordField.setStringValue_(self.bulletPasswordField.stringValue())
+            self.clearPasswordField.setHidden_(False)
+            self.bulletPasswordField.setHidden_(True)
+        else:
+            self.bulletPasswordField.setStringValue_(self.clearPasswordField.stringValue())
+            self.clearPasswordField.setHidden_(True)
+            self.bulletPasswordField.setHidden_(False)
+    
     def ok_(self, sender):
+        if self.groupCombo.stringValue() == "":
+            alert = NSAlert.alloc().init()
+            alert.setMessageText_("Group name may not be empty")
+            alert.setAlertStyle_(NSCriticalAlertStyle)
+            alert.runModal()
+            return
+        if self.titleField.stringValue() == "":
+            alert = NSAlert.alloc().init()
+            alert.setMessageText_("Title may not be empty")
+            alert.setAlertStyle_(NSCriticalAlertStyle)
+            alert.runModal()
+            return
+        
         edit = True
         if not self.record:
             edit = False
