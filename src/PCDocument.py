@@ -5,10 +5,23 @@
 #  Created by Mathis Hofer on 09.10.09.
 #  Copyright Mathis Hofer 2009. All rights reserved.
 #
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
 
-from objc import YES, NO, IBAction, IBOutlet
+from objc import IBAction, IBOutlet
 from Foundation import *
-from CoreData import *
 from AppKit import *
 from loxodo.vault import Vault
 import time
@@ -178,7 +191,7 @@ class PCDocument(NSDocument):
             self.lastModifiedLabel.setStringValue_(record._get_last_mod() and time.strftime('%c', time.gmtime(record._get_last_mod())) or '--')
             for component in self.infoView.subviews():
                 if isinstance(component, NSControl):
-                    component.setEnabled_(YES)
+                    component.setEnabled_(True)
         else:
             self.titleLabel.setStringValue_('--')
             self.usernameLabel.setStringValue_('--')
@@ -187,7 +200,7 @@ class PCDocument(NSDocument):
             self.lastModifiedLabel.setStringValue_('--')
             for component in self.infoView.subviews():
                 if isinstance(component, NSControl):
-                    component.setEnabled_(NO)
+                    component.setEnabled_(False)
 
     @objc.signature('v@:s')
     def listDoubleClicked_(self, sender):

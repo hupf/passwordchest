@@ -5,15 +5,28 @@
 #  Created by Mathis Hofer on 26.09.09.
 #  Copyright (c) 2009 Mathis Hofer. All rights reserved.
 #
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
 
-from objc import YES, NO, IBAction, IBOutlet
+from objc import IBAction, IBOutlet
 from Foundation import *
-from CoreData import *
 from AppKit import *
 from loxodo.vault import Vault
 
 from VaultDataSource import RecordNode, RecordGroupNode
-from util import getPasswordStrength
+from util import calculate_password_strength
 
 
 class EntryWindowController(NSObject):
@@ -139,7 +152,7 @@ class EntryWindowController(NSObject):
         else:
             password = self.bulletPasswordField.stringValue()
         username = self.userField.stringValue() != '' and self.userField.stringValue() or None
-        score = getPasswordStrength(password, username)
+        score = calculate_password_strength(password, username)
         self.passwordStrengthIndicator.setIntValue_(score)
     
     def togglePasswordVisibility_(self, sender):
