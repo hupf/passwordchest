@@ -164,7 +164,16 @@ class PCDocument(NSDocument):
         if record:
             self.titleLabel.setStringValue_(record._get_title())
             self.usernameLabel.setStringValue_(record._get_user() or '--')
-            self.urlLabel.setStringValue_(record._get_url() or '--')
+            
+            if record._get_url():
+                self.urlLabel.setAllowsEditingTextAttributes_(True)
+                self.urlLabel.setSelectable_(True)
+
+                attrString = NSAttributedString.alloc().initWithString_attributes_(record._get_url(), {NSLinkAttributeName:record._get_url()})
+                self.urlLabel.setAttributedStringValue_(attrString)
+            else:
+                self.urlLabel.setStringValue_('--')
+            
             self.notesLabel.setStringValue_(record._get_notes() or '--')
             self.lastModifiedLabel.setStringValue_(record._get_last_mod() and time.strftime('%c', time.gmtime(record._get_last_mod())) or '--')
             for component in self.infoView.subviews():
