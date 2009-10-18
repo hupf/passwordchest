@@ -13,6 +13,7 @@ from AppKit import *
 from loxodo.vault import Vault
 
 from VaultDataSource import RecordNode, RecordGroupNode
+from util import getPasswordStrength
 
 
 class EntryWindowController(NSObject):
@@ -91,6 +92,7 @@ class EntryWindowController(NSObject):
         self.bulletPasswordField.setStringValue_("")
         self.clearPasswordField.setHidden_(True)
         self.bulletPasswordField.setHidden_(False)
+        self.passwordStrengthIndicator.setIntValue_(0)
         self.showPasswordButton.setState_(NSOffState)
         self.urlField.setStringValue_("")
         self.notesField.setString_("")
@@ -104,6 +106,7 @@ class EntryWindowController(NSObject):
             self.userField.setStringValue_(self.record._get_user())
             self.clearPasswordField.setStringValue_(self.record._get_passwd())
             self.bulletPasswordField.setStringValue_(self.record._get_passwd())
+            self._updatePasswordStrengthLevel()
             self.urlField.setStringValue_(self.record._get_url())
             self.notesField.setString_(self.record._get_notes())
     
@@ -129,6 +132,16 @@ class EntryWindowController(NSObject):
         NSApp.endSheet_(self.entryWindow)
         self.entryWindow.orderOut_(self)
     
+    def _updatePasswordStrengthLevel(self):
+        password = None
+        if self.showPasswordButton.state() == NSOnState:
+            password = self.clearPasswordField.stringValue()
+        else:
+            password = self.bulletPasswordField.stringValue()
+        username = self.userField.stringValue() != '' and self.userField.stringValue() or None
+        score = getPasswordStrength(password, username)
+        self.passwordStrengthIndicator.setIntValue_(score)
+    
     def togglePasswordVisibility_(self, sender):
         if self.showPasswordButton.state() == NSOnState:
             self.clearPasswordField.setStringValue_(self.bulletPasswordField.stringValue())
@@ -138,6 +151,10 @@ class EntryWindowController(NSObject):
             self.bulletPasswordField.setStringValue_(self.clearPasswordField.stringValue())
             self.clearPasswordField.setHidden_(True)
             self.bulletPasswordField.setHidden_(False)
+    
+    def controlTextDidChange_(self, notification):
+        if notification.object() == self.clearPasswordField or notification.object() == self.bulletPasswordField:
+            self._updatePasswordStrengthLevel()
     
     def ok_(self, sender):
         if self.groupCombo.stringValue() == "":
