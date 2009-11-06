@@ -47,6 +47,7 @@ class PCDocument(NSDocument):
     notesLabel = IBOutlet()
     lastModifiedLabel = IBOutlet()
     removeButton = IBOutlet()
+    searchField = IBOutlet()
 
     def init(self):
         self = super(PCDocument, self).init()
@@ -166,6 +167,17 @@ class PCDocument(NSDocument):
     def selectionChanged(self):
         self.updateInfo()
         self.removeButton.setEnabled_(self.outlineView.numberOfSelectedRows() != 0)
+    
+    def performFindPanelAction_(self, sender):
+        self.searchField.selectText_(self)
+    
+    def search_(self, sender):
+        if sender == self.searchField:
+            searchString = sender.stringValue()
+            if len(searchString):
+                self.dataSource.updateFilter_(searchString)
+            else:
+                self.dataSource.resetFilter()
     
     def updateInfo(self):
         record = None

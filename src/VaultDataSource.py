@@ -57,6 +57,8 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
     document = None
     vault = None
     nodes = {}
+    filterString = ''
+    filteredNodes = {}
 
     def initWithPCDocument_(self, document):
         self = super(VaultDataSource, self).init()
@@ -69,19 +71,31 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
         return self
     
     def outlineView_numberOfChildrenOfItem_(self, outlineView, item):
-        return item is None and len(self.nodes) \
-            or isinstance(item, RecordGroupNode) and len(self.nodes[item]) \
+        nodes = None
+        if len(self.filterString):
+            nodes = self.filteredNodes
+        else:
+            nodes = self.nodes
+        
+        return item is None and len(nodes) \
+            or isinstance(item, RecordGroupNode) and len(nodes[item]) \
             or 0
 
     def outlineView_isItemExpandable_(self, outlineView, item):
         return not isinstance(item, RecordNode)
     
     def outlineView_child_ofItem_(self, outlineView, index, item):
+        nodes = None
+        if len(self.filterString):
+            nodes = self.filteredNodes
+        else:
+            nodes = self.nodes
+        
         if item is None:
-            sorted_keys = self.nodes.keys()
+            sorted_keys = nodes.keys()
             sorted_keys.sort(lambda n1, n2: cmp(n1._get_title(), n2._get_title()))
         return item is None and sorted_keys[index] \
-            or isinstance(item, RecordGroupNode) and self.nodes[item][index] \
+            or isinstance(item, RecordGroupNode) and nodes[item][index] \
             or None
 
     def outlineView_objectValueForTableColumn_byItem_(self, outlineView, tableColumn, item):
@@ -101,11 +115,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
         self.vault.records.append(record)
         
         # update outline view
-        groupNode = None
-        for g in self.nodes.keys():
-            if record._get_group() == g._get_title():
-                groupNode = g
-                break
+        groupNode = self._getGroupNodeWithTitle_(record._get_group())
         if not groupNode:
             # create new group
             groupNode = RecordGroupNode.alloc().initWithTitle_(record._get_group())
@@ -113,11 +123,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
         newNode = RecordNode.alloc().initWithRecord_(record)
         self.nodes[groupNode].append(newNode)
         self._sortNodes()
-        self.document.outlineView.reloadData()
-        self.document.outlineView.expandItem_(groupNode)
-        nodeIndex = self.document.outlineView.rowForItem_(newNode)
-        self.document.outlineView.scrollRowToVisible_(nodeIndex)
-        self.document.outlineView.selectRowIndexes_byExtendingSelection_(NSIndexSet.indexSetWithIndex_(nodeIndex), False)
+        self._refreshOutlineViewAndFocusRecordNode_(newNode)
         
         self.document.updateChangeCount_(NSChangeDone)
         
@@ -139,24 +145,13 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
                 if r.record._get_uuid() == record._get_uuid():
                     self.nodes[groupNode].remove(r)
                     break
-        self.document.outlineView.reloadData()
+        self._refreshOutlineView()
         
         self.document.updateChangeCount_(NSChangeDone)
     
     def recordUpdated_(self, record):
         # update outline view
-        recordNode = None
-        groupNode = None
-        found = False
-        for g in self.nodes.keys():
-            for r in self.nodes[g]:
-                if r.record._get_uuid() == record._get_uuid():
-                    recordNode = r
-                    groupNode = g
-                    found = True
-                    break
-            if found:
-                break
+        recordNode, groupNode = self._getRecordAndGroupNodeForUUID_(record._get_uuid())
         if record._get_group() != groupNode._get_title():
             # group changed
             if len(self.nodes[groupNode]) == 1:
@@ -165,11 +160,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
             else:
                 self.nodes[groupNode].remove(recordNode)
             # check if new group exists
-            groupNode = None
-            for g in self.nodes.keys():
-                if record._get_group() == g._get_title():
-                    groupNode = g
-                    break
+            groupNode = self._getGroupNodeWithTitle_(record._get_group())
             if not groupNode:
                 # create new group
                 groupNode = RecordGroupNode.alloc().initWithTitle_(record._get_group())
@@ -177,11 +168,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
             recordNode = RecordNode.alloc().initWithRecord_(record)
             self.nodes[groupNode].append(recordNode)
         self._sortNodes()
-        self.document.outlineView.reloadData()
-        self.document.outlineView.expandItem_(groupNode)
-        nodeIndex = self.document.outlineView.rowForItem_(recordNode)
-        self.document.outlineView.scrollRowToVisible_(nodeIndex)
-        self.document.outlineView.selectRowIndexes_byExtendingSelection_(NSIndexSet.indexSetWithIndex_(nodeIndex), False)
+        self._refreshOutlineViewAndFocusRecordNode_(recordNode)
                 
         self.document.updateChangeCount_(NSChangeDone)
     
@@ -190,7 +177,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
         recordNode.record.mark_modified()
         
         self._sortNodes()
-        self.document.outlineView.reloadData()
+        self._refreshOutlineView()
         self.document.updateInfo()
         
         self.document.updateChangeCount_(NSChangeDone)
@@ -200,7 +187,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
             self.vault.records.remove(r.record)
         self.nodes.pop(groupNode)
         
-        self.document.outlineView.reloadData()
+        self._refreshOutlineView()
         
         self.document.updateChangeCount_(NSChangeDone)
     
@@ -221,6 +208,37 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
         
         self.document.updateChangeCount_(NSChangeDone)
     
+    def updateFilter_(self, filterString):
+        self.filterString = filterString
+        self.filteredNodes = {}
+        for g in self.nodes.keys():
+            groupNodes = []
+            for r in self.nodes[g]:
+                if filterString in r.record._get_group() or \
+                    filterString in r.record._get_title() or \
+                    filterString in r.record._get_user() or \
+                    filterString in r.record._get_url() or \
+                    filterString in r.record._get_notes():
+                    groupNodes.append(r)
+            if len(groupNodes):
+                self.filteredNodes[g] = groupNodes
+        
+        node = None
+        index = self.document.outlineView.selectedRow()
+        if index != -1:
+            node = self.document.outlineView.itemAtRow_(index)
+        self.document.outlineView.reloadData()
+        if node:
+            index = self.document.outlineView.rowForItem_(node)
+            if index != -1:
+                self.document.outlineView.scrollRowToVisible_(index)
+                self.document.outlineView.selectRowIndexes_byExtendingSelection_(NSIndexSet.indexSetWithIndex_(index), False)
+    
+    def resetFilter(self):
+        self.filterString = ''
+        self.filteredNodes = {}
+        self.document.outlineView.reloadData()
+    
     def _updateRecordsFromVault(self):
         self._sortVaultRecords()
         self.nodes = {}
@@ -237,7 +255,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
             self.nodes[RecordGroupNode.alloc().initWithTitle_(last_group)] = group
     
     def _sortNodes(self):
-        for group in self.nodes:
+        for group in self.nodes.keys():
             self.nodes[group].sort(lambda n1, n2: cmp(n1._get_title(), n2._get_title()))
         pass
     
@@ -249,3 +267,39 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
             return cmp(r1._get_group(), r2._get_group())
         
         self.vault.records.sort(comp)
+    
+    def _getGroupNodeWithTitle_(self, title):
+        for g in self.nodes.keys():
+            if g._get_title() == title:
+                return g
+        return None
+    
+    def _getRecordAndGroupNodeForUUID_(self, uuid):
+        for g in self.nodes.keys():
+            for r in self.nodes[g]:
+                if r.record._get_uuid() == uuid:
+                    return (r, g)
+        return None
+    
+    def _refreshOutlineView(self):
+        self._refreshOutlineViewAndFocusRecordNode_(None)
+    
+    def _refreshOutlineViewAndFocusRecordNode_(self, recordNode):
+        groupNode = None
+        if recordNode:
+            groupNode = self._getGroupNodeWithTitle_(recordNode.record._get_group())
+            
+        if len(self.filterString):
+            self.updateFilter_(self.filterString)
+            if recordNode and groupNode in self.filteredNodes.keys():
+                self.document.outlineView.expandItem_(groupNode)
+        else:
+            self.document.outlineView.reloadData()
+            if recordNode:
+                self.document.outlineView.expandItem_(groupNode)
+        if recordNode:
+            index = self.document.outlineView.rowForItem_(recordNode)
+            if index != -1:
+                self.document.outlineView.scrollRowToVisible_(index)
+                self.document.outlineView.selectRowIndexes_byExtendingSelection_(NSIndexSet.indexSetWithIndex_(index), False)
+
