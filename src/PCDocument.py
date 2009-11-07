@@ -31,6 +31,80 @@ from PasswordDialogController import PasswordDialogController
 from EntryWindowController import EntryWindowController
 
 
+class PCOutlineView(NSOutlineView):
+    cutItemAction = None
+    copyItemAction = None
+    pasteItemAction = None
+    expandAllItemAction = None
+    collapseAllItemAction = None
+    renameItemAction = None
+    editItemAction = None
+    deleteItemAction = None
+    
+    def setCutItemAction_(self, action):
+        self.cutItemAction = action
+    
+    def setCopyItemAction_(self, action):
+        self.copyItemAction = action
+    
+    def setPasteItemAction_(self, action):
+        self.pasteItemAction = action
+    
+    def setExpandAllItemAction_(self, action):
+        self.expandAllItemAction = action
+    
+    def setCollapseAllItemAction_(self, action):
+        self.collapseAllItemAction = action
+    
+    def setRenameItemAction_(self, action):
+        self.renameItemAction = action
+    
+    def setEditItemAction_(self, action):
+        self.editItemAction = action
+    
+    def setDeleteItemAction_(self, action):
+        self.deleteItemAction = action
+    
+    def menuForEvent_(self, event):
+        mousePoint = self.convertPoint_fromView_(event.locationInWindow(), None)
+        row = self.rowAtPoint_(mousePoint)
+        
+        item = None
+        if row != -1:
+            item = self.itemAtRow_(row)
+            self.selectRowIndexes_byExtendingSelection_(NSIndexSet.indexSetWithIndex_(row), False)
+        else:
+            self.deselectAll_(self)
+        
+        # prepare context menu
+        contextMenu = NSMenu.alloc().initWithTitle_('Context menu')
+        
+        cutItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Cut', self.cutItemAction, '')
+        copyItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Copy', self.copyItemAction, '')
+        pasteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Paste', self.pasteItemAction, '')
+        expandAllItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Expand All', self.expandAllItemAction, '')
+        collapseAllItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Collapse All', self.collapseAllItemAction, '')
+        renameItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Rename', self.renameItemAction, '')
+        editItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Edit', self.editItemAction, '')
+        deleteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Delete', self.deleteItemAction, '')
+        
+        if item:
+            contextMenu.addItem_(cutItem)
+            contextMenu.addItem_(copyItem)
+        contextMenu.addItem_(pasteItem)
+        contextMenu.addItem_(NSMenuItem.separatorItem())
+        contextMenu.addItem_(expandAllItem)
+        contextMenu.addItem_(collapseAllItem)
+        if item:
+            contextMenu.addItem_(NSMenuItem.separatorItem())
+            contextMenu.addItem_(renameItem)
+            if isinstance(item, RecordNode):
+                contextMenu.addItem_(editItem)
+            contextMenu.addItem_(deleteItem)
+                    
+        return contextMenu
+
+
 class PCDocument(NSDocument):
     isNewFile = True
     vault = None
@@ -74,6 +148,14 @@ class PCDocument(NSDocument):
         self.outlineView.setDelegate_(self.dataSource)
         self.outlineView.setTarget_(self)
         self.outlineView.setDoubleAction_(self.listDoubleClicked_)
+        #self.outlineView.setCutItemAction_(action)
+        #self.outlineView.setCopyItemAction_(action)
+        #self.outlineView.setPasteItemAction_(action)
+        self.outlineView.setExpandAllItemAction_(self.expandAll_)
+        self.outlineView.setCollapseAllItemAction_(self.collapseAll_)
+        self.outlineView.setRenameItemAction_(self.renameSelectedNode_)
+        self.outlineView.setEditItemAction_(self.editSelectedRecord_)
+        self.outlineView.setDeleteItemAction_(self.removeSelectedRecord_)
     
     def readFromURL_ofType_error_(self, url, type, errorInfo):
         if not url.isFileURL():
@@ -142,7 +224,16 @@ class PCDocument(NSDocument):
     def editRecord_(self, record):
         self.entryWindowController.showEditDialog_(record)
     
-    def removeRecord_(self, sender):
+    @objc.signature('v@:s')
+    def editSelectedRecord_(self, sender):
+        index = self.outlineView.selectedRow()
+        if index != -1:
+            item = self.outlineView.itemAtRow_(index)
+            if isinstance(item, RecordNode):
+                self.editRecord_(item.record)
+    
+    @objc.signature('v@:s')
+    def removeSelectedRecord_(self, sender):
         index = self.outlineView.selectedRow()
         if index != -1:
             item = self.outlineView.itemAtRow_(index)
@@ -164,6 +255,12 @@ class PCDocument(NSDocument):
             copiedObjects = NSArray.arrayWithObject_(record._get_passwd())
             pasteboard.writeObjects_(copiedObjects)
     
+    @objc.signature('v@:s')
+    def renameSelectedNode_(self, sender):
+        index = self.outlineView.selectedRow()
+        if index != -1:
+            self.outlineView.editColumn_row_withEvent_select_(0, index, None, True)
+    
     def selectionChanged(self):
         self.updateInfo()
         self.removeButton.setEnabled_(self.outlineView.numberOfSelectedRows() != 0)
@@ -176,6 +273,7 @@ class PCDocument(NSDocument):
             searchString = sender.stringValue()
             if len(searchString):
                 self.dataSource.updateFilter_(searchString)
+                self.dataSource.expandAll()
             else:
                 self.dataSource.resetFilter()
     
@@ -221,3 +319,12 @@ class PCDocument(NSDocument):
             item = self.outlineView.itemAtRow_(index)
             if isinstance(item, RecordNode):
                 self.editRecord_(item.record)
+    
+    @objc.signature('v@:s')
+    def expandAll_(self, sender):
+        self.dataSource.expandAll()
+    
+    @objc.signature('v@:s')
+    def collapseAll_(self, sender):
+        self.dataSource.collapseAll()
+    

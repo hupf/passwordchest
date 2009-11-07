@@ -239,6 +239,26 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
         self.filteredNodes = {}
         self.document.outlineView.reloadData()
     
+    def expandAll(self):
+        nodes = None
+        if len(self.filterString):
+            nodes = self.filteredNodes
+        else:
+            nodes = self.nodes
+        
+        for g in nodes.keys():
+            self.document.outlineView.expandItem_(g)
+    
+    def collapseAll(self):
+        nodes = None
+        if len(self.filterString):
+            nodes = self.filteredNodes
+        else:
+            nodes = self.nodes
+        
+        for g in nodes.keys():
+            self.document.outlineView.collapseItem_(g)
+    
     def _updateRecordsFromVault(self):
         self._sortVaultRecords()
         self.nodes = {}

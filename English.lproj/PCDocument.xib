@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="461"/>
+			<integer value="368"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -66,11 +66,9 @@
 							<string key="NSToolbarItemPaletteLabel">Search Field</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSSearchField" key="NSToolbarItemView" id="732651669">
-								<reference key="NSNextResponder"/>
+								<nil key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{0, 14}, {176, 22}}</string>
-								<reference key="NSSuperview"/>
-								<reference key="NSWindow"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSSearchFieldCell" key="NSCell" id="809254952">
 									<int key="NSCellFlags">343014976</int>
@@ -707,14 +705,6 @@
 					<int key="connectionID">694</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">removeRecord:</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="143578352"/>
-					</object>
-					<int key="connectionID">695</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">searchField</string>
 						<reference key="source" ref="1021"/>
@@ -737,6 +727,14 @@
 						<reference key="destination" ref="732651669"/>
 					</object>
 					<int key="connectionID">702</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removeSelectedRecord:</string>
+						<reference key="source" ref="1021"/>
+						<reference key="destination" ref="143578352"/>
+					</object>
+					<int key="connectionID">703</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1114,6 +1112,7 @@
 					<string>463.IBPluginDependency</string>
 					<string>464.IBPluginDependency</string>
 					<string>465.IBPluginDependency</string>
+					<string>466.CustomClassName</string>
 					<string>466.IBPluginDependency</string>
 					<string>468.IBPluginDependency</string>
 					<string>471.IBPluginDependency</string>
@@ -1181,6 +1180,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>PCOutlineView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1230,7 +1230,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">702</int>
+			<int key="maxID">703</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1303,7 +1303,7 @@
 							<string>id</string>
 						</object>
 					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="238240973">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/PCDocument.py</string>
 					</object>
@@ -1317,7 +1317,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addRecord:</string>
 							<string>copyPassword:</string>
-							<string>removeRecord:</string>
+							<string>removeSelectedRecord:</string>
 							<string>search:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1332,6 +1332,11 @@
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
 					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PCOutlineView</string>
+					<string key="superclassName">NSOutlineView</string>
+					<reference key="sourceIdentifier" ref="238240973"/>
 				</object>
 			</object>
 			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">
