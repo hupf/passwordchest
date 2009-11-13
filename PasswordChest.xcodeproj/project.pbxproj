@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B1ED4CF106F91400056082F /* PasswordDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1ED4CE106F91400056082F /* PasswordDialog.xib */; };
 		3B1ED4E6106FBAD80056082F /* PasswordDialogController.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B1ED4E5106FBAD80056082F /* PasswordDialogController.py */; };
 		3B1ED59D106FD8790056082F /* vault.py in Copy loxodo */ = {isa = PBXBuildFile; fileRef = 3B1ED59C106FD8790056082F /* vault.py */; };
 		3B1ED5A4106FDA5B0056082F /* __init__.py in Copy loxodo */ = {isa = PBXBuildFile; fileRef = 3BE6A004106EBCDD0034E04A /* __init__.py */; };
@@ -17,6 +16,13 @@
 		3B1ED5A9106FDA820056082F /* twofish_cbc.py in Copy twofish */ = {isa = PBXBuildFile; fileRef = 3BE6A008106EBCDD0034E04A /* twofish_cbc.py */; };
 		3B1ED5AA106FDA820056082F /* twofish_ecb.py in Copy twofish */ = {isa = PBXBuildFile; fileRef = 3BE6A009106EBCDD0034E04A /* twofish_ecb.py */; };
 		3B387B7F106D76390081CC64 /* VaultDataSource.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B387B7E106D76390081CC64 /* VaultDataSource.py */; };
+		3B4D2B2710AD7FD600DC23DE /* PasswordChestAppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */; };
+		3B4D2B2D10AD807F00DC23DE /* PasswordDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */; };
+		3B4D2B2F10AD808F00DC23DE /* PasswordGenerator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2E10AD808F00DC23DE /* PasswordGenerator.xib */; };
+		3B4D2B3110AD809900DC23DE /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B3010AD809900DC23DE /* PreferencesWindow.xib */; };
+		3B4D2B3F10AD820700DC23DE /* CustomSplitView.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B3E10AD820700DC23DE /* CustomSplitView.py */; };
+		3B6267B810A5D679000E18D6 /* PreferencesWindowController.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B6267B710A5D679000E18D6 /* PreferencesWindowController.py */; };
+		3B6267DE10A5DF5E000E18D6 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B6267DD10A5DF5E000E18D6 /* Defaults.plist */; };
 		3B62E5B4108B74B800F698EE /* util.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B62E5B3108B74B800F698EE /* util.py */; };
 		3BA9645B106D70D500C66D59 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA9645A106D70D500C66D59 /* BWToolkitFramework.framework */; };
 		3BA964BF106D718C00C66D59 /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA9645A106D70D500C66D59 /* BWToolkitFramework.framework */; };
@@ -27,7 +33,6 @@
 		3BAE8A89107FBC180071CE06 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAE8A87107FBC180071CE06 /* Credits.rtf */; };
 		3BAE8ABD107FDDDD0071CE06 /* chest-document.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3BAE8ABC107FDDDD0071CE06 /* chest-document.icns */; };
 		3BE69F40106E67850034E04A /* EntryWindowController.py in Resources */ = {isa = PBXBuildFile; fileRef = 3BE69F3F106E67850034E04A /* EntryWindowController.py */; };
-		3BE69F55106E6F250034E04A /* PasswordGenerator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BE69F54106E6F250034E04A /* PasswordGenerator.xib */; };
 		77631A270C06C501005415CB /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77631A260C06C501005415CB /* Python.framework */; };
 		77631A3F0C0748CF005415CB /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = 77631A3E0C0748CF005415CB /* main.py */; };
 		77C8C1F90C07829500965286 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C8C1F70C07829500965286 /* MainMenu.xib */; };
@@ -84,11 +89,16 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* PasswordChest_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordChest_Prefix.pch; sourceTree = "<group>"; };
-		3B1ED4CE106F91400056082F /* PasswordDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasswordDialog.xib; path = ../passwordchest/English.lproj/PasswordDialog.xib; sourceTree = "<group>"; };
+		3B1ED4CE106F91400056082F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../passwordchest/English.lproj/PasswordDialog.xib; sourceTree = "<group>"; };
 		3B1ED4E5106FBAD80056082F /* PasswordDialogController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordDialogController.py; path = ../passwordchest/src/PasswordDialogController.py; sourceTree = SOURCE_ROOT; };
 		3B1ED584106FD56C0056082F /* __init__.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = __init__.py; path = ../passwordchest/src/__init__.py; sourceTree = SOURCE_ROOT; };
 		3B1ED59C106FD8790056082F /* vault.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vault.py; sourceTree = "<group>"; };
 		3B387B7E106D76390081CC64 /* VaultDataSource.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = VaultDataSource.py; path = src/VaultDataSource.py; sourceTree = "<group>"; };
+		3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordChestAppDelegate.py; path = ../passwordchest/src/PasswordChestAppDelegate.py; sourceTree = SOURCE_ROOT; };
+		3B4D2B3E10AD820700DC23DE /* CustomSplitView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = CustomSplitView.py; path = ../passwordchest/src/CustomSplitView.py; sourceTree = SOURCE_ROOT; };
+		3B6267AE10A5CAE7000E18D6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../passwordchest/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
+		3B6267B710A5D679000E18D6 /* PreferencesWindowController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PreferencesWindowController.py; path = ../passwordchest/src/PreferencesWindowController.py; sourceTree = SOURCE_ROOT; };
+		3B6267DD10A5DF5E000E18D6 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Defaults.plist; path = ../passwordchest/Defaults.plist; sourceTree = SOURCE_ROOT; };
 		3B62E5B3108B74B800F698EE /* util.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = util.py; path = src/util.py; sourceTree = "<group>"; };
 		3BA9645A106D70D500C66D59 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = /Users/hupf/Development/passwordchest/lib/BWToolkitFramework.framework; sourceTree = "<absolute>"; };
 		3BA964C1106D71BA00C66D59 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PCDocument.xib; sourceTree = "<group>"; };
@@ -98,7 +108,7 @@
 		3BAE8A88107FBC180071CE06 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3BAE8ABC107FDDDD0071CE06 /* chest-document.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "chest-document.icns"; sourceTree = "<group>"; };
 		3BE69F3F106E67850034E04A /* EntryWindowController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = EntryWindowController.py; path = ../passwordchest/src/EntryWindowController.py; sourceTree = SOURCE_ROOT; };
-		3BE69F54106E6F250034E04A /* PasswordGenerator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PasswordGenerator.xib; path = English.lproj/PasswordGenerator.xib; sourceTree = "<group>"; };
+		3BE69F54106E6F250034E04A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PasswordGenerator.xib; sourceTree = "<group>"; };
 		3BE6A004106EBCDD0034E04A /* __init__.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = __init__.py; sourceTree = "<group>"; };
 		3BE6A006106EBCDD0034E04A /* __init__.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = __init__.py; sourceTree = "<group>"; };
 		3BE6A007106EBCDD0034E04A /* twofish.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = twofish.py; sourceTree = "<group>"; };
@@ -131,10 +141,13 @@
 				3BE6A003106EBCDD0034E04A /* loxodo */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				3B1ED584106FD56C0056082F /* __init__.py */,
+				3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */,
 				3BAE8A77107FBA440071CE06 /* PCDocument.py */,
 				3B387B7E106D76390081CC64 /* VaultDataSource.py */,
+				3B4D2B3E10AD820700DC23DE /* CustomSplitView.py */,
 				3B1ED4E5106FBAD80056082F /* PasswordDialogController.py */,
 				3BE69F3F106E67850034E04A /* EntryWindowController.py */,
+				3B6267B710A5D679000E18D6 /* PreferencesWindowController.py */,
 				3B62E5B3108B74B800F698EE /* util.py */,
 			);
 			name = Classes;
@@ -194,12 +207,14 @@
 			children = (
 				77C8C1F70C07829500965286 /* MainMenu.xib */,
 				3BA964C0106D71BA00C66D59 /* PCDocument.xib */,
-				3B1ED4CE106F91400056082F /* PasswordDialog.xib */,
+				3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */,
 				3BA964C3106D71D200C66D59 /* EntryWindow.xib */,
-				3BE69F54106E6F250034E04A /* PasswordGenerator.xib */,
-				3BAE8A87107FBC180071CE06 /* Credits.rtf */,
+				3B4D2B2E10AD808F00DC23DE /* PasswordGenerator.xib */,
+				3B4D2B3010AD809900DC23DE /* PreferencesWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				3B6267DD10A5DF5E000E18D6 /* Defaults.plist */,
+				3BAE8A87107FBC180071CE06 /* Credits.rtf */,
 				3BAE89E0107F96E10071CE06 /* chest.icns */,
 				3BAE8ABC107FDDDD0071CE06 /* chest-document.icns */,
 			);
@@ -291,8 +306,8 @@
 				77C8C1F90C07829500965286 /* MainMenu.xib in Resources */,
 				3BA964C2106D71BA00C66D59 /* PCDocument.xib in Resources */,
 				3BA964C5106D71D200C66D59 /* EntryWindow.xib in Resources */,
-				3B1ED4CF106F91400056082F /* PasswordDialog.xib in Resources */,
-				3BE69F55106E6F250034E04A /* PasswordGenerator.xib in Resources */,
+				3B4D2B2D10AD807F00DC23DE /* PasswordDialog.xib in Resources */,
+				3B4D2B2F10AD808F00DC23DE /* PasswordGenerator.xib in Resources */,
 				3B1ED5A5106FDA5F0056082F /* __init__.py in Resources */,
 				77631A3F0C0748CF005415CB /* main.py in Resources */,
 				3B387B7F106D76390081CC64 /* VaultDataSource.py in Resources */,
@@ -303,6 +318,11 @@
 				3BAE8A89107FBC180071CE06 /* Credits.rtf in Resources */,
 				3BAE8ABD107FDDDD0071CE06 /* chest-document.icns in Resources */,
 				3B62E5B4108B74B800F698EE /* util.py in Resources */,
+				3B4D2B3110AD809900DC23DE /* PreferencesWindow.xib in Resources */,
+				3B6267B810A5D679000E18D6 /* PreferencesWindowController.py in Resources */,
+				3B6267DE10A5DF5E000E18D6 /* Defaults.plist in Resources */,
+				3B4D2B2710AD7FD600DC23DE /* PasswordChestAppDelegate.py in Resources */,
+				3B4D2B3F10AD820700DC23DE /* CustomSplitView.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +346,30 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B1ED4CE106F91400056082F /* English */,
+			);
+			name = PasswordDialog.xib;
+			sourceTree = "<group>";
+		};
+		3B4D2B2E10AD808F00DC23DE /* PasswordGenerator.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BE69F54106E6F250034E04A /* English */,
+			);
+			name = PasswordGenerator.xib;
+			sourceTree = "<group>";
+		};
+		3B4D2B3010AD809900DC23DE /* PreferencesWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B6267AE10A5CAE7000E18D6 /* English */,
+			);
+			name = PreferencesWindow.xib;
 			sourceTree = "<group>";
 		};
 		3BA964C0106D71BA00C66D59 /* PCDocument.xib */ = {

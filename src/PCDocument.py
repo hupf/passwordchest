@@ -29,6 +29,7 @@ import time
 from VaultDataSource import VaultDataSource, RecordNode, RecordGroupNode
 from PasswordDialogController import PasswordDialogController
 from EntryWindowController import EntryWindowController
+from PreferencesWindowController import PreferencesWindowController
 
 
 class PCOutlineView(NSOutlineView):
@@ -110,6 +111,7 @@ class PCDocument(NSDocument):
     vault = None
     password = None
     
+    preferences = None
     dataSource = None
     entryWindowController = None
     
@@ -125,8 +127,15 @@ class PCDocument(NSDocument):
 
     def init(self):
         self = super(PCDocument, self).init()
+        
         if self.isNewFile:
             self.vault = Vault('123456')
+        
+        defaultPreferencesFile = NSBundle.mainBundle().pathForResource_ofType_('Defaults', 'plist')
+        defaultPreferences = NSDictionary.dictionaryWithContentsOfFile_(defaultPreferencesFile)
+        self.preferences = NSUserDefaults.standardUserDefaults()
+        self.preferences.registerDefaults_(defaultPreferences)
+        
         return self
     
     def initWithContentsOfURL_ofType_error_(self, url, type, errorInfo):
@@ -276,6 +285,9 @@ class PCDocument(NSDocument):
                 self.dataSource.expandAll()
             else:
                 self.dataSource.resetFilter()
+    
+    def openPreferences_(self, sender):
+        PreferencesWindowController.alloc().init()
     
     def updateInfo(self):
         record = None

@@ -5,67 +5,44 @@
 #  Created by Mathis Hofer on 25.09.09.
 #  Copyright Mathis Hofer 2009. All rights reserved.
 #
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
 
-from objc import YES, NO, IBAction, IBOutlet
+from objc import IBAction, IBOutlet
 from Foundation import *
 from AppKit import *
-from loxodo.vault import Vault
+import os
 
-from PasswordDialogController import PasswordDialogController
-from MainWindowController import MainWindowController
-from CustomSplitView import CustomSplitView
 
 class PasswordChestAppDelegate(NSObject):
-    passwordDialog = None
-
     def applicationDidFinishLaunching_(self, sender):
-        NSLog("Application did finish launching.")
-
-    def newDocument_(self, sender):
-        mainWindowController = MainWindowController.alloc().init()
-
-    def openDocument_(self, sender):
-        dialog = NSOpenPanel.openPanel()
-        dialog.setCanChooseFiles_(YES)
-        dialog.setCanChooseDirectories_(NO)
-        dialog.setAllowsMultipleSelection_(NO)
+        defaultPreferencesFile = NSBundle.mainBundle().pathForResource_ofType_('Defaults', 'plist')
+        defaultPreferences = NSDictionary.dictionaryWithContentsOfFile_(defaultPreferencesFile)
+        self.preferences = NSUserDefaults.standardUserDefaults()
+        self.preferences.registerDefaults_(defaultPreferences)
         
-        if dialog.runModalForDirectory_file_(None, None) == NSOKButton:
-            filename = dialog.filenames().objectAtIndex_(0)
+        if self.preferences.boolForKey_('openDefaultFileOnStartup'):
+            defaultFile = self.preferences.stringForKey_('defaultFile')
+            if not os.path.exists(defaultFile):
+                alert = NSAlert.alloc().init()
+                alert.setMessageText_("Unable to open default file")
+                alert.setInformativeText_("File does not exist.")
+                alert.setAlertStyle_(NSCriticalAlertStyle)
+                alert.runModal()
+                return
             
-            passwordDialogController = PasswordDialogController.alloc().init()
-            vault = None
-            error = None
-            while vault is None or vault and error == Vault.BadPasswordError:
-                password = passwordDialogController.askForPassword()
-                vault = None
-                error = None
-                if password is not None:
-                    try:
-                        vault = Vault(password, filename=filename)
-                    except Vault.BadPasswordError:
-                        error = Vault.BadPasswordError
-                        
-                        alert = NSAlert.alloc().init()
-                        alert.setMessageText_("Bad password")
-                        alert.setInformativeText_("Please try again.")
-                        alert.setAlertStyle_(NSCriticalAlertStyle)
-                        alert.runModal()
-                    except Vault.VaultVersionError:
-                        error = Vault.VaultVersionError
-                        
-                        alert = NSAlert.alloc().init()
-                        alert.setMessageText_("Bad file version")
-                        alert.setInformativeText_("This is not a PasswordSafe V3 file.")
-                        alert.setAlertStyle_(NSCriticalAlertStyle)
-                        alert.runModal()
-                    except Vault.VaultFormatError:
-                        error = Vault.VaultFormatError
-                        
-                        alert = NSAlert.alloc().init()
-                        alert.setMessageText_("Bad file format")
-                        alert.setInformativeText_("File integrity check failed.")
-                        alert.setAlertStyle_(NSCriticalAlertStyle)
-                        alert.runModal()
-            if vault and error is None:
-                mainWindowController = MainWindowController.alloc().initWithFilename_andVault_(filename, vault)
+            documentController = NSDocumentController.sharedDocumentController()
+            documentController.closeAllDocumentsWithDelegate_didCloseAllSelector_contextInfo_(None, None, None)
+            documentController.openDocumentWithContentsOfURL_display_error_(NSURL.fileURLWithPath_(defaultFile), True, None)
