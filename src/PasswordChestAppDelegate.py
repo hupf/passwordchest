@@ -33,8 +33,8 @@ class PasswordChestAppDelegate(NSObject):
         self.preferences = NSUserDefaults.standardUserDefaults()
         self.preferences.registerDefaults_(defaultPreferences)
         
-        if self.preferences.boolForKey_('openDefaultFileOnStartup'):
-            defaultFile = self.preferences.stringForKey_('defaultFile')
+        if self.preferences.boolForKey_('PCOpenDefaultFileOnStartup'):
+            defaultFile = self.preferences.stringForKey_('PCDefaultFile')
             if not os.path.exists(defaultFile):
                 alert = NSAlert.alloc().init()
                 alert.setMessageText_("Unable to open default file")

@@ -70,7 +70,7 @@ class PreferencesWindowController(NSWindowController):
         self.defaultFileChooseButton.setEnabled_(self.defaultFileCheckboxMatrix.selectedCell() == self.defaultFileUseDefaultCheckbox)
     
     def _updateFields(self):
-        openDefaultFileOnStartup = self.preferences.boolForKey_('openDefaultFileOnStartup')
+        openDefaultFileOnStartup = self.preferences.boolForKey_('PCOpenDefaultFileOnStartup')
         if openDefaultFileOnStartup:
             self.defaultFileCheckboxMatrix.selectCellWithTag_(self.defaultFileUseDefaultCheckbox.tag())
         else:
@@ -78,14 +78,14 @@ class PreferencesWindowController(NSWindowController):
         self.defaultFileField.setEnabled_(openDefaultFileOnStartup)
         self.defaultFileChooseButton.setEnabled_(openDefaultFileOnStartup)
         
-        self.defaultFileField.setStringValue_(self.preferences.stringForKey_('defaultFile'))
+        self.defaultFileField.setStringValue_(self.preferences.stringForKey_('PCDefaultFile'))
 
     def _save(self):
         self.preferences.setBool_forKey_(
             self.defaultFileCheckboxMatrix.selectedCell() == self.defaultFileUseDefaultCheckbox,
-            'openDefaultFileOnStartup')
+            'PCOpenDefaultFileOnStartup')
         self.preferences.setObject_forKey_(
             self.defaultFileField.stringValue(),
-            'defaultFile')
+            'PCDefaultFile')
         
         self.preferences.synchronize()
