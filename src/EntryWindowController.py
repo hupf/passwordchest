@@ -25,7 +25,7 @@ from Foundation import *
 from AppKit import *
 from loxodo.vault import Vault
 
-from VaultDataSource import RecordNode, RecordGroupNode
+from PCDataSource import RecordNode, RecordGroupNode
 from util import calculate_password_strength
 
 

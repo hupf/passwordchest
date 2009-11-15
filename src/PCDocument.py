@@ -27,7 +27,7 @@ from loxodo.vault import Vault
 import time
 
 from PCSplitView import PCSplitView
-from VaultDataSource import VaultDataSource, RecordNode, RecordGroupNode
+from PCDataSource import PCDataSource, RecordNode, RecordGroupNode
 from PasswordDialogController import PasswordDialogController
 from EntryWindowController import EntryWindowController
 from PreferencesWindowController import PreferencesWindowController
@@ -162,7 +162,7 @@ class PCDocument(NSDocument):
         
         # user interface preparation code
         self.entryWindowController = EntryWindowController.alloc().initWithDocument_(self)
-        self.dataSource = VaultDataSource.alloc().initWithPCDocument_(self)
+        self.dataSource = PCDataSource.alloc().initWithPCDocument_(self)
         self.outlineView.setDataSource_(self.dataSource)
         self.outlineView.setDelegate_(self.dataSource)
         self.outlineView.setTarget_(self)

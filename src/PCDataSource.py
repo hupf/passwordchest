@@ -1,5 +1,5 @@
 #
-#  VaultDataSource.py
+#  PCDataSource.py
 #  Password Chest
 #
 #  Created by Mathis Hofer on 25.09.09.
@@ -53,7 +53,7 @@ class RecordGroupNode(NSObject):
 
 
 NSOutlineViewDataSource = objc.protocolNamed('NSOutlineViewDataSource')
-class VaultDataSource(NSObject, NSOutlineViewDataSource):
+class PCDataSource(NSObject, NSOutlineViewDataSource):
     document = None
     vault = None
     nodes = {}
@@ -61,7 +61,7 @@ class VaultDataSource(NSObject, NSOutlineViewDataSource):
     filteredNodes = {}
 
     def initWithPCDocument_(self, document):
-        self = super(VaultDataSource, self).init()
+        self = super(PCDataSource, self).init()
         if self is None: return None
 
         self.document = document

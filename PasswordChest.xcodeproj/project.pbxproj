@@ -15,7 +15,7 @@
 		3B1ED5A8106FDA820056082F /* twofish.py in Copy twofish */ = {isa = PBXBuildFile; fileRef = 3BE6A007106EBCDD0034E04A /* twofish.py */; };
 		3B1ED5A9106FDA820056082F /* twofish_cbc.py in Copy twofish */ = {isa = PBXBuildFile; fileRef = 3BE6A008106EBCDD0034E04A /* twofish_cbc.py */; };
 		3B1ED5AA106FDA820056082F /* twofish_ecb.py in Copy twofish */ = {isa = PBXBuildFile; fileRef = 3BE6A009106EBCDD0034E04A /* twofish_ecb.py */; };
-		3B387B7F106D76390081CC64 /* VaultDataSource.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B387B7E106D76390081CC64 /* VaultDataSource.py */; };
+		3B387B7F106D76390081CC64 /* PCDataSource.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B387B7E106D76390081CC64 /* PCDataSource.py */; };
 		3B4D2B2710AD7FD600DC23DE /* PasswordChestAppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */; };
 		3B4D2B2D10AD807F00DC23DE /* PasswordDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */; };
 		3B4D2B2F10AD808F00DC23DE /* PasswordGenerator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2E10AD808F00DC23DE /* PasswordGenerator.xib */; };
@@ -97,7 +97,7 @@
 		3B1ED4E5106FBAD80056082F /* PasswordDialogController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordDialogController.py; path = ../passwordchest/src/PasswordDialogController.py; sourceTree = SOURCE_ROOT; };
 		3B1ED584106FD56C0056082F /* __init__.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = __init__.py; path = ../passwordchest/src/__init__.py; sourceTree = SOURCE_ROOT; };
 		3B1ED59C106FD8790056082F /* vault.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vault.py; sourceTree = "<group>"; };
-		3B387B7E106D76390081CC64 /* VaultDataSource.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = VaultDataSource.py; path = src/VaultDataSource.py; sourceTree = "<group>"; };
+		3B387B7E106D76390081CC64 /* PCDataSource.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PCDataSource.py; path = src/PCDataSource.py; sourceTree = "<group>"; };
 		3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordChestAppDelegate.py; path = ../passwordchest/src/PasswordChestAppDelegate.py; sourceTree = SOURCE_ROOT; };
 		3B4D2B3E10AD820700DC23DE /* PCSplitView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PCSplitView.py; path = ../passwordchest/src/PCSplitView.py; sourceTree = SOURCE_ROOT; };
 		3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../passwordchest/lib/Sparkle.framework; sourceTree = SOURCE_ROOT; };
@@ -150,7 +150,7 @@
 				3B1ED584106FD56C0056082F /* __init__.py */,
 				3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */,
 				3BAE8A77107FBA440071CE06 /* PCDocument.py */,
-				3B387B7E106D76390081CC64 /* VaultDataSource.py */,
+				3B387B7E106D76390081CC64 /* PCDataSource.py */,
 				3B4D2B3E10AD820700DC23DE /* PCSplitView.py */,
 				3B1ED4E5106FBAD80056082F /* PasswordDialogController.py */,
 				3BE69F3F106E67850034E04A /* EntryWindowController.py */,
@@ -319,7 +319,7 @@
 				3B4D2B2F10AD808F00DC23DE /* PasswordGenerator.xib in Resources */,
 				3B1ED5A5106FDA5F0056082F /* __init__.py in Resources */,
 				77631A3F0C0748CF005415CB /* main.py in Resources */,
-				3B387B7F106D76390081CC64 /* VaultDataSource.py in Resources */,
+				3B387B7F106D76390081CC64 /* PCDataSource.py in Resources */,
 				3BE69F40106E67850034E04A /* EntryWindowController.py in Resources */,
 				3B1ED4E6106FBAD80056082F /* PasswordDialogController.py in Resources */,
 				3BAE89E1107F96E10071CE06 /* chest.icns in Resources */,
