@@ -20,7 +20,7 @@
 		3B4D2B2D10AD807F00DC23DE /* PasswordDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */; };
 		3B4D2B2F10AD808F00DC23DE /* PasswordGenerator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2E10AD808F00DC23DE /* PasswordGenerator.xib */; };
 		3B4D2B3110AD809900DC23DE /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B3010AD809900DC23DE /* PreferencesWindow.xib */; };
-		3B4D2B3F10AD820700DC23DE /* CustomSplitView.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B3E10AD820700DC23DE /* CustomSplitView.py */; };
+		3B4D2B3F10AD820700DC23DE /* PCSplitView.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B3E10AD820700DC23DE /* PCSplitView.py */; };
 		3B4D2BBE10ADC1FE00DC23DE /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */; };
 		3B4D2BC710ADC22900DC23DE /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */; };
 		3B4D2BD110ADC3FD00DC23DE /* passwordchest.pub in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2BD010ADC3FD00DC23DE /* passwordchest.pub */; };
@@ -99,7 +99,7 @@
 		3B1ED59C106FD8790056082F /* vault.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vault.py; sourceTree = "<group>"; };
 		3B387B7E106D76390081CC64 /* VaultDataSource.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = VaultDataSource.py; path = src/VaultDataSource.py; sourceTree = "<group>"; };
 		3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordChestAppDelegate.py; path = ../passwordchest/src/PasswordChestAppDelegate.py; sourceTree = SOURCE_ROOT; };
-		3B4D2B3E10AD820700DC23DE /* CustomSplitView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = CustomSplitView.py; path = ../passwordchest/src/CustomSplitView.py; sourceTree = SOURCE_ROOT; };
+		3B4D2B3E10AD820700DC23DE /* PCSplitView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PCSplitView.py; path = ../passwordchest/src/PCSplitView.py; sourceTree = SOURCE_ROOT; };
 		3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../passwordchest/lib/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		3B4D2BD010ADC3FD00DC23DE /* passwordchest.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = passwordchest.pub; path = ../passwordchest/passwordchest.pub; sourceTree = SOURCE_ROOT; };
 		3B6267AE10A5CAE7000E18D6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../passwordchest/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 				3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */,
 				3BAE8A77107FBA440071CE06 /* PCDocument.py */,
 				3B387B7E106D76390081CC64 /* VaultDataSource.py */,
-				3B4D2B3E10AD820700DC23DE /* CustomSplitView.py */,
+				3B4D2B3E10AD820700DC23DE /* PCSplitView.py */,
 				3B1ED4E5106FBAD80056082F /* PasswordDialogController.py */,
 				3BE69F3F106E67850034E04A /* EntryWindowController.py */,
 				3B6267B710A5D679000E18D6 /* PreferencesWindowController.py */,
@@ -331,7 +331,7 @@
 				3B6267B810A5D679000E18D6 /* PreferencesWindowController.py in Resources */,
 				3B6267DE10A5DF5E000E18D6 /* Defaults.plist in Resources */,
 				3B4D2B2710AD7FD600DC23DE /* PasswordChestAppDelegate.py in Resources */,
-				3B4D2B3F10AD820700DC23DE /* CustomSplitView.py in Resources */,
+				3B4D2B3F10AD820700DC23DE /* PCSplitView.py in Resources */,
 				3B4D2BD110ADC3FD00DC23DE /* passwordchest.pub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

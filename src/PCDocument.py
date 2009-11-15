@@ -26,6 +26,7 @@ from AppKit import *
 from loxodo.vault import Vault
 import time
 
+from PCSplitView import PCSplitView
 from VaultDataSource import VaultDataSource, RecordNode, RecordGroupNode
 from PasswordDialogController import PasswordDialogController
 from EntryWindowController import EntryWindowController
@@ -33,6 +34,7 @@ from PreferencesWindowController import PreferencesWindowController
 
 
 class PCOutlineView(NSOutlineView):
+    copyPasswordItemAction = None
     cutItemAction = None
     copyItemAction = None
     pasteItemAction = None
@@ -41,6 +43,9 @@ class PCOutlineView(NSOutlineView):
     renameItemAction = None
     editItemAction = None
     deleteItemAction = None
+
+    def setCopyPasswordItemAction_(self, action):
+        self.copyPasswordItemAction = action
     
     def setCutItemAction_(self, action):
         self.cutItemAction = action
@@ -80,6 +85,7 @@ class PCOutlineView(NSOutlineView):
         # prepare context menu
         contextMenu = NSMenu.alloc().initWithTitle_('Context menu')
         
+        copyPasswordItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Copy Password', self.copyPasswordItemAction, '')
         cutItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Cut', self.cutItemAction, '')
         copyItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Copy', self.copyItemAction, '')
         pasteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Paste', self.pasteItemAction, '')
@@ -89,6 +95,9 @@ class PCOutlineView(NSOutlineView):
         editItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Edit', self.editItemAction, '')
         deleteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Delete', self.deleteItemAction, '')
         
+        if isinstance(item, RecordNode):
+            contextMenu.addItem_(copyPasswordItem)
+            contextMenu.addItem_(NSMenuItem.separatorItem())
         if item:
             contextMenu.addItem_(cutItem)
             contextMenu.addItem_(copyItem)
@@ -117,6 +126,7 @@ class PCDocument(NSDocument):
     
     outlineView = IBOutlet()
     infoView = IBOutlet()
+    logoView = IBOutlet()
     titleLabel = IBOutlet()
     usernameLabel = IBOutlet()
     urlLabel = IBOutlet()
@@ -157,6 +167,7 @@ class PCDocument(NSDocument):
         self.outlineView.setDelegate_(self.dataSource)
         self.outlineView.setTarget_(self)
         self.outlineView.setDoubleAction_(self.listDoubleClicked_)
+        self.outlineView.setCopyPasswordItemAction_(self.copyPassword_)
         #self.outlineView.setCutItemAction_(action)
         #self.outlineView.setCopyItemAction_(action)
         #self.outlineView.setPasteItemAction_(action)
@@ -165,6 +176,7 @@ class PCDocument(NSDocument):
         self.outlineView.setRenameItemAction_(self.renameSelectedNode_)
         self.outlineView.setEditItemAction_(self.editSelectedRecord_)
         self.outlineView.setDeleteItemAction_(self.removeSelectedRecord_)
+        self.updateInfo()
     
     def readFromURL_ofType_error_(self, url, type, errorInfo):
         if not url.isFileURL():
@@ -311,18 +323,18 @@ class PCDocument(NSDocument):
             
             self.notesLabel.setStringValue_(record._get_notes() or '--')
             self.lastModifiedLabel.setStringValue_(record._get_last_mod() and time.strftime('%c', time.gmtime(record._get_last_mod())) or '--')
-            for component in self.infoView.subviews():
-                if isinstance(component, NSControl):
-                    component.setEnabled_(True)
+            
+            self.infoView.setHidden_(False)
+            self.logoView.setHidden_(True)
         else:
             self.titleLabel.setStringValue_('--')
             self.usernameLabel.setStringValue_('--')
             self.urlLabel.setStringValue_('--')
             self.notesLabel.setStringValue_('--')
             self.lastModifiedLabel.setStringValue_('--')
-            for component in self.infoView.subviews():
-                if isinstance(component, NSControl):
-                    component.setEnabled_(False)
+            
+            self.infoView.setHidden_(True)
+            self.logoView.setHidden_(False)
 
     @objc.signature('v@:s')
     def listDoubleClicked_(self, sender):
