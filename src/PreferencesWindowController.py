@@ -34,10 +34,10 @@ class PreferencesWindowController(NSWindowController):
     defaultFileChooseButton = IBOutlet()
     
     def init(self):
-        self = super(PreferencesWindowController, self).initWithWindowNibName_("PreferencesWindow")
+        self = super(PreferencesWindowController, self).initWithWindowNibName_('PreferencesWindow')
         if self is None: return None
 
-        self.setWindowFrameAutosaveName_("PreferencesWindow")
+        self.setWindowFrameAutosaveName_('PreferencesWindow')
         self.showWindow_(self)
         self.retain()
         

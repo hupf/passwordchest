@@ -37,8 +37,8 @@ class PasswordChestAppDelegate(NSObject):
             defaultFile = self.preferences.stringForKey_('PCDefaultFile')
             if not os.path.exists(defaultFile):
                 alert = NSAlert.alloc().init()
-                alert.setMessageText_("Unable to open default file")
-                alert.setInformativeText_("File does not exist.")
+                alert.setMessageText_('Unable to open default file')
+                alert.setInformativeText_('File does not exist.')
                 alert.setAlertStyle_(NSCriticalAlertStyle)
                 alert.runModal()
                 return

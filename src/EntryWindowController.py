@@ -56,7 +56,7 @@ class EntryWindowController(NSObject):
         self.document = document
         self.dataSource = document.dataSource
         self.vault = document.vault
-        NSBundle.loadNibNamed_owner_("EntryWindow", self)
+        NSBundle.loadNibNamed_owner_('EntryWindow', self)
         
         return self
     
@@ -97,18 +97,18 @@ class EntryWindowController(NSObject):
             self.groupCombo.addItemWithObjectValue_(group)
     
     def _resetFields(self):
-        self.groupCombo.setStringValue_("")
-        self.titleField.setStringValue_("")
-        self.userField.setStringValue_("")
+        self.groupCombo.setStringValue_('')
+        self.titleField.setStringValue_('')
+        self.userField.setStringValue_('')
         self.passwordStrengthIndicator.setIntValue_(0)
-        self.clearPasswordField.setStringValue_("")
-        self.bulletPasswordField.setStringValue_("")
+        self.clearPasswordField.setStringValue_('')
+        self.bulletPasswordField.setStringValue_('')
         self.clearPasswordField.setHidden_(True)
         self.bulletPasswordField.setHidden_(False)
         self.passwordStrengthIndicator.setIntValue_(0)
         self.showPasswordButton.setState_(NSOffState)
-        self.urlField.setStringValue_("")
-        self.notesField.setString_("")
+        self.urlField.setStringValue_('')
+        self.notesField.setString_('')
         
         # focus title field
         self.titleField.selectText_(self)
@@ -173,15 +173,15 @@ class EntryWindowController(NSObject):
             self._updatePasswordStrengthLevel()
     
     def ok_(self, sender):
-        if self.groupCombo.stringValue() == "":
+        if self.groupCombo.stringValue() == '':
             alert = NSAlert.alloc().init()
-            alert.setMessageText_("Group name may not be empty")
+            alert.setMessageText_('Group name may not be empty')
             alert.setAlertStyle_(NSCriticalAlertStyle)
             alert.runModal()
             return
-        if self.titleField.stringValue() == "":
+        if self.titleField.stringValue() == '':
             alert = NSAlert.alloc().init()
-            alert.setMessageText_("Title may not be empty")
+            alert.setMessageText_('Title may not be empty')
             alert.setAlertStyle_(NSCriticalAlertStyle)
             alert.runModal()
             return

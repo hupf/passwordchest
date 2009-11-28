@@ -25,6 +25,7 @@ from Foundation import *
 from AppKit import *
 from loxodo.vault import Vault
 import time
+import os
 
 from PCSplitView import PCSplitView
 from PCDataSource import PCDataSource, RecordNode, RecordGroupNode
@@ -155,7 +156,7 @@ class PCDocument(NSDocument):
         return (self, errorInfo)
         
     def windowNibName(self):
-        return u"PCDocument"
+        return u'PCDocument'
     
     def windowControllerDidLoadNib_(self, aController):
         super(PCDocument, self).windowControllerDidLoadNib_(aController)
@@ -188,7 +189,7 @@ class PCDocument(NSDocument):
         while vault is None and error is None or error == Vault.BadPasswordError:
             vault = None
             error = None
-            self.password = passwordDialogController.askForPassword()
+            self.password = passwordDialogController.requestPassword(os.path.basename(url.path()))
             if self.password is None:
                 # user pressed cancel
                 break
@@ -199,18 +200,18 @@ class PCDocument(NSDocument):
                 error = Vault.BadPasswordError
                 
                 alert = NSAlert.alloc().init()
-                alert.setMessageText_("Bad password")
-                alert.setInformativeText_("Please try again.")
+                alert.setMessageText_('Bad password')
+                alert.setInformativeText_('Please try again.')
                 alert.setAlertStyle_(NSCriticalAlertStyle)
                 alert.runModal()
             except Vault.VaultVersionError:
                 error = Vault.VaultVersionError
-                errorInfo = NSError.errorWithDomain_code_userInfo_("PCError", -1,
-                    NSDictionary.dictionaryWithObject_forKey_("File is not a PasswordSafe V3 file.", NSLocalizedFailureReasonErrorKey))
+                errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
+                    {NSLocalizedFailureReasonErrorKey: 'File is not a PasswordSafe V3 file.'})
             except Vault.VaultFormatError:
                 error = Vault.VaultFormatError
-                errorInfo = NSError.errorWithDomain_code_userInfo_("PCError", -1,
-                    NSDictionary.dictionaryWithObject_forKey_("File integrity check failed.", NSLocalizedFailureReasonErrorKey))
+                errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
+                    {NSLocalizedFailureReasonErrorKey: 'File integrity check failed.'})
         if vault and error is None:
             self.vault = vault
             return (True, errorInfo)
@@ -221,20 +222,28 @@ class PCDocument(NSDocument):
 
     def writeToURL_ofType_error_(self, url, type, errorInfo):
         if not url.isFileURL():
+            errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
+                    {NSLocalizedFailureReasonErrorKey: 'Invalid file URL.'})
             return (False, errorInfo)
         
-        if self.isNewFile:
-            while self.password is None:
-                passwordDialogController = PasswordDialogController.alloc().init()
-                self.password = passwordDialogController.askForPassword()
-            self.isNewFile = False
-        self.vault.write_to_file(url.path(), self.password)
+        if self.isNewFile and self.password is None:
+            passwordDialogController = PasswordDialogController.alloc().init()
+            pw = ''
+            while pw == '':
+                pw = passwordDialogController.requestNewPassword(os.path.basename(url.path()))
+            if pw is None:
+                # user pressed cancel
+                errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
+                    {NSLocalizedFailureReasonErrorKey: 'Password entry aborted.'})
+                return (False, errorInfo)
+            self.password = pw
+        self.isNewFile = False
         try:
             self.vault.write_to_file(url.path(), self.password)
             return (True, errorInfo)
         except Vault.VaultFormatError:
-            errorInfo = NSError.errorWithDomain_code_userInfo_("PCError", -1,
-                    NSDictionary.dictionaryWithObject_forKey_("File integrity check failed.", NSLocalizedFailureReasonErrorKey))
+            errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
+                    {NSLocalizedFailureReasonErrorKey: 'File integrity check failed.'})
             return (False, errorInfo)
         except:
             return (False, errorInfo)
@@ -300,6 +309,18 @@ class PCDocument(NSDocument):
     
     def openPreferences_(self, sender):
         PreferencesWindowController.alloc().init()
+    
+    def changePassword_(self, sender):
+        passwordDialogController = PasswordDialogController.alloc().init()
+        pw = ''
+        while pw == '':
+            pw = passwordDialogController.requestNewPassword(self.fileURL() and os.path.basename(self.fileURL().path()) or 'Untitled')
+        if pw is None:
+            # user pressed cancel
+            return
+        
+        self.password = pw
+        self.updateChangeCount_(NSChangeDone)
     
     def updateInfo(self):
         record = None
