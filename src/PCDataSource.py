@@ -169,7 +169,8 @@ class PCDataSource(NSObject, NSOutlineViewDataSource):
             self.nodes[groupNode].append(recordNode)
         self._sortNodes()
         self._refreshOutlineViewAndFocusRecordNode_(recordNode)
-                
+        self.document.updateInfo()
+        
         self.document.updateChangeCount_(NSChangeDone)
     
     def renameRecord_toName_(self, recordNode, newName):

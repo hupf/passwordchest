@@ -21,6 +21,8 @@
 #
 
 import re
+import string
+import urllib
 
 
 def calculate_password_strength(password, username=None):
@@ -71,3 +73,63 @@ def calculate_password_strength(password, username=None):
         score += 5
     
     return max(min(score, 100), 0)
+
+
+def urlize(text):
+    """
+    Converts text to URL if possible.
+    
+    Copyright (c) Django Software Foundation and individual contributors.
+    All rights reserved.
+    Modified by Mathis Hofer.
+
+    Redistribution and use in source and binary forms, with or without modification,
+    are permitted provided that the following conditions are met:
+
+        1. Redistributions of source code must retain the above copyright notice, 
+           this list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright 
+           notice, this list of conditions and the following disclaimer in the
+           documentation and/or other materials provided with the distribution.
+
+        3. Neither the name of Django nor the names of its contributors may be used
+           to endorse or promote products derived from this software without
+           specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+    ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+    ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    """
+    LEADING_PUNCTUATION  = ['(', '<', '&lt;']
+    TRAILING_PUNCTUATION = ['.', ',', ')', '>', '\n', '&gt;']
+    punctuation_re = re.compile('^(?P<lead>(?:%s)*)(?P<middle>.*?)(?P<trail>(?:%s)*)$' % \
+        ('|'.join([re.escape(x) for x in LEADING_PUNCTUATION]),
+        '|'.join([re.escape(x) for x in TRAILING_PUNCTUATION])))
+    simple_email_re = re.compile(r'^\S+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+$')
+    
+    text = text.strip()
+    match = None
+    if '.' in text or '@' in text or ':' in text:
+        match = punctuation_re.match(text)
+    if match:
+        lead, middle, trail = match.groups()
+        # Make URL we want to point to.
+        url = None
+        if middle.startswith('http://') or middle.startswith('https://'):
+            url = urllib.quote(middle, safe='/&=:;#?+*')
+        elif middle.startswith('www.') or ('@' not in middle and \
+                middle and middle[0] in string.ascii_letters + string.digits and \
+                (middle.endswith('.org') or middle.endswith('.net') or middle.endswith('.com'))):
+            url = urllib.quote('http://%s' % middle, safe='/&=:;#?+*')
+        elif '@' in middle and not ':' in middle and simple_email_re.match(middle):
+            url = 'mailto:%s' % middle
+        return url
+    return text

@@ -32,6 +32,7 @@ from PCDataSource import PCDataSource, RecordNode, RecordGroupNode
 from PasswordDialogController import PasswordDialogController
 from EntryWindowController import EntryWindowController
 from PreferencesWindowController import PreferencesWindowController
+from util import urlize
 
 
 class PCOutlineView(NSOutlineView):
@@ -116,6 +117,37 @@ class PCOutlineView(NSOutlineView):
         return contextMenu
 
 
+class PCHyperlinkButtonCell(NSButtonCell):
+    def init(self):
+        self = super(PCHyperlinkButtonCell, self).init()
+        
+        self.useHandCursor = False
+        self.setBordered_(False)
+        self.setHighlightsBy_(NSNoCellMask)
+        self.setAlignment_(NSLeftTextAlignment)
+        
+        # needed for mouseEntered/mouseExited
+        self.setShowsBorderOnlyWhileMouseInside_(True)
+        
+        return self
+    
+    def enableHandCursor(self):
+        self.useHandCursor = True
+        
+    def disableHandCursor(self):
+        self.useHandCursor = False
+    
+    def mouseEntered_(self, event):
+        if self.useHandCursor:
+            NSCursor.pointingHandCursor().push()
+        return super(PCHyperlinkButtonCell, self).mouseEntered_(event)
+
+    def mouseExited_(self, event):
+        if self.useHandCursor:
+            NSCursor.pop()
+        return super(PCHyperlinkButtonCell, self).mouseExited_(event)
+
+
 class PCDocument(NSDocument):
     isNewFile = True
     vault = None
@@ -130,7 +162,7 @@ class PCDocument(NSDocument):
     logoView = IBOutlet()
     titleLabel = IBOutlet()
     usernameLabel = IBOutlet()
-    urlLabel = IBOutlet()
+    urlButton = IBOutlet()
     notesLabel = IBOutlet()
     lastModifiedLabel = IBOutlet()
     removeButton = IBOutlet()
@@ -168,7 +200,7 @@ class PCDocument(NSDocument):
         self.outlineView.setDelegate_(self.dataSource)
         self.outlineView.setTarget_(self)
         self.outlineView.setDoubleAction_(self.listDoubleClicked_)
-        self.outlineView.setCopyPasswordItemAction_(self.copyPassword_)
+        self.outlineView.setCopyPasswordItemAction_(self.copyRecordPassword_)
         #self.outlineView.setCutItemAction_(action)
         #self.outlineView.setCopyItemAction_(action)
         #self.outlineView.setPasteItemAction_(action)
@@ -177,6 +209,11 @@ class PCDocument(NSDocument):
         self.outlineView.setRenameItemAction_(self.renameSelectedNode_)
         self.outlineView.setEditItemAction_(self.editSelectedRecord_)
         self.outlineView.setDeleteItemAction_(self.removeSelectedRecord_)
+        
+        hyperlinkCell = PCHyperlinkButtonCell.alloc().init()
+        hyperlinkCell.setAction_(self.urlButton.cell().action())
+        self.urlButton.setCell_(hyperlinkCell)
+        
         self.updateInfo()
     
     def readFromURL_ofType_error_(self, url, type, errorInfo):
@@ -272,7 +309,7 @@ class PCDocument(NSDocument):
             elif isinstance(item, RecordGroupNode):
                 self.dataSource.removeGroup_(item)
     
-    def copyPassword_(self, sender):
+    def copyRecordPassword_(self, sender):
         record = None
         index = self.outlineView.selectedRow()
         if index != -1:
@@ -284,6 +321,17 @@ class PCDocument(NSDocument):
             pasteboard.clearContents()
             copiedObjects = NSArray.arrayWithObject_(record._get_passwd())
             pasteboard.writeObjects_(copiedObjects)
+    
+    def openRecordURL_(self, sender):
+        record = None
+        index = self.outlineView.selectedRow()
+        if index != -1:
+            item = self.outlineView.itemAtRow_(index)
+            if isinstance(item, RecordNode):
+                record = item.record
+        if record and record._get_url():
+            NSWorkspace.sharedWorkspace().openURL_(NSURL.URLWithString_(urlize(record._get_url())))
+            
     
     @objc.signature('v@:s')
     def renameSelectedNode_(self, sender):
@@ -334,13 +382,18 @@ class PCDocument(NSDocument):
             self.usernameLabel.setStringValue_(record._get_user() or '--')
             
             if record._get_url():
-                self.urlLabel.setAllowsEditingTextAttributes_(True)
-                self.urlLabel.setSelectable_(True)
-
-                attrString = NSAttributedString.alloc().initWithString_attributes_(record._get_url(), {NSLinkAttributeName:record._get_url()})
-                self.urlLabel.setAttributedStringValue_(attrString)
+                attrString = NSMutableAttributedString.alloc().initWithString_(record._get_url())
+                range = NSMakeRange(0, attrString.length());
+                attrString.beginEditing()
+                attrString.addAttribute_value_range_(NSForegroundColorAttributeName, NSColor.blueColor(), range)
+                attrString.addAttribute_value_range_(NSUnderlineStyleAttributeName, NSNumber.numberWithInt_(NSSingleUnderlineStyle), range)
+                attrString.endEditing()
+                
+                self.urlButton.setAttributedTitle_(attrString)
+                self.urlButton.cell().enableHandCursor()
             else:
-                self.urlLabel.setStringValue_('--')
+                self.urlButton.setTitle_('--')
+                self.urlButton.cell().disableHandCursor()
             
             self.notesLabel.setStringValue_(record._get_notes() or '--')
             self.lastModifiedLabel.setStringValue_(record._get_last_mod() and time.strftime('%c', time.gmtime(record._get_last_mod())) or '--')
@@ -350,7 +403,7 @@ class PCDocument(NSDocument):
         else:
             self.titleLabel.setStringValue_('--')
             self.usernameLabel.setStringValue_('--')
-            self.urlLabel.setStringValue_('--')
+            self.urlButton.setStringValue_('--')
             self.notesLabel.setStringValue_('--')
             self.lastModifiedLabel.setStringValue_('--')
             
