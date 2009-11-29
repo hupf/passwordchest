@@ -191,6 +191,7 @@ class EntryWindowController(NSObject):
     def passwordGenerated_(self, password):
         self.clearPasswordField.setStringValue_(password)
         self.bulletPasswordField.setStringValue_(password)
+        self._updatePasswordStrengthLevel()
     
     def ok_(self, sender):
         if self.groupCombo.stringValue() == '':
