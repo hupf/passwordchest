@@ -6,5 +6,13 @@
 	<string></string>
 	<key>PCOpenDefaultFileOnStartup</key>
 	<false/>
+	<key>PCPasswordGeneratorUppercase</key>
+	<true/>
+	<key>PCPasswordGeneratorDigits</key>
+	<true/>
+	<key>PCPasswordGeneratorPunctuation</key>
+	<false/>
+	<key>PCPasswordGeneratorLength</key>
+	<integer>10</integer>
 </dict>
 </plist>

@@ -23,6 +23,7 @@
 import re
 import string
 import urllib
+from random import choice
 
 
 def calculate_password_strength(password, username=None):
@@ -73,6 +74,17 @@ def calculate_password_strength(password, username=None):
         score += 5
     
     return max(min(score, 100), 0)
+
+
+def generate_random_password(length=10, use_uppercase=True, use_digits=False, use_punctuation=False):
+    allowed_chars = string.ascii_lowercase
+    if use_uppercase:
+        allowed_chars += string.ascii_uppercase
+    if use_digits:
+        allowed_chars += string.digits
+    if use_punctuation:
+        allowed_chars += string.punctuation
+    return ''.join([choice(allowed_chars) for i in range(length)])
 
 
 def urlize(text):

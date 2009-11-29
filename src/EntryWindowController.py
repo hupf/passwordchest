@@ -26,6 +26,7 @@ from AppKit import *
 from loxodo.vault import Vault
 
 from PCDataSource import RecordNode, RecordGroupNode
+from PasswordGeneratorController import PasswordGeneratorController
 from util import calculate_password_strength
 
 
@@ -34,6 +35,7 @@ class EntryWindowController(NSObject):
     dataSource = None
     vault = None
     record = None
+    passwordGeneratorController = None
     
     entryWindow = IBOutlet()
 
@@ -145,6 +147,7 @@ class EntryWindowController(NSObject):
             self, None, None)
     
     def _closeDialog(self):
+        self.closePasswordGenerator()
         NSApp.endSheet_(self.entryWindow)
         self.entryWindow.orderOut_(self)
     
@@ -171,6 +174,23 @@ class EntryWindowController(NSObject):
     def controlTextDidChange_(self, notification):
         if notification.object() == self.clearPasswordField or notification.object() == self.bulletPasswordField:
             self._updatePasswordStrengthLevel()
+    
+    def openPasswordGenerator_(self, sender):
+        if self.passwordGeneratorController is not None:
+            self.closePasswordGenerator()
+        self.passwordGeneratorController = PasswordGeneratorController.alloc().initWithCallback_andEntryWindow_(
+            self.passwordGenerated_, self.entryWindow)
+        self.passwordGeneratorController.retain()
+    
+    def closePasswordGenerator(self):
+        if self.passwordGeneratorController is not None:
+            self.passwordGeneratorController.close()
+            self.passwordGeneratorController.release()
+            self.passwordGeneratorController = None
+    
+    def passwordGenerated_(self, password):
+        self.clearPasswordField.setStringValue_(password)
+        self.bulletPasswordField.setStringValue_(password)
     
     def ok_(self, sender):
         if self.groupCombo.stringValue() == '':

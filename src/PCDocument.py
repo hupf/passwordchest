@@ -331,7 +331,6 @@ class PCDocument(NSDocument):
                 record = item.record
         if record and record._get_url():
             NSWorkspace.sharedWorkspace().openURL_(NSURL.URLWithString_(urlize(record._get_url())))
-            
     
     @objc.signature('v@:s')
     def renameSelectedNode_(self, sender):
