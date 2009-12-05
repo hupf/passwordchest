@@ -59,7 +59,7 @@ class PreferencesWindowController(NSWindowController):
         chooseDialog.setCanChooseDirectories_(False)
         chooseDialog.setCanChooseFiles_(True)
         chooseDialog.setAllowsMultipleSelection_(False)
-        chooseDialog.setTitle_('Choose default file')
+        chooseDialog.setTitle_(NSLocalizedString("Choose default file", ""))
         
         result = chooseDialog.runModal()
         if result == NSOKButton:

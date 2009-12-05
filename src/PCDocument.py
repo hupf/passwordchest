@@ -87,24 +87,33 @@ class PCOutlineView(NSOutlineView):
         # prepare context menu
         contextMenu = NSMenu.alloc().initWithTitle_('Context menu')
         
-        copyPasswordItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Copy Password', self.copyPasswordItemAction, '')
-        cutItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Cut', self.cutItemAction, '')
-        copyItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Copy', self.copyItemAction, '')
-        pasteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Paste', self.pasteItemAction, '')
-        expandAllItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Expand All', self.expandAllItemAction, '')
-        collapseAllItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Collapse All', self.collapseAllItemAction, '')
-        renameItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Rename', self.renameItemAction, '')
-        editItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Edit', self.editItemAction, '')
-        deleteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Delete', self.deleteItemAction, '')
+        copyPasswordItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Copy Password", ""), self.copyPasswordItemAction, '')
+        cutItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Cut", ""), self.cutItemAction, '')
+        copyItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Copy", ""), self.copyItemAction, '')
+        pasteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Paste", ""), self.pasteItemAction, '')
+        expandAllItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Expand All", ""), self.expandAllItemAction, '')
+        collapseAllItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Collapse All", ""), self.collapseAllItemAction, '')
+        renameItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Rename", ""), self.renameItemAction, '')
+        editItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Edit", ""), self.editItemAction, '')
+        deleteItem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            NSLocalizedString("Delete", ""), self.deleteItemAction, '')
         
         if isinstance(item, RecordNode):
             contextMenu.addItem_(copyPasswordItem)
             contextMenu.addItem_(NSMenuItem.separatorItem())
-        if item:
-            contextMenu.addItem_(cutItem)
-            contextMenu.addItem_(copyItem)
-        contextMenu.addItem_(pasteItem)
-        contextMenu.addItem_(NSMenuItem.separatorItem())
+        #if item:
+        #    contextMenu.addItem_(cutItem)
+        #    contextMenu.addItem_(copyItem)
+        #contextMenu.addItem_(pasteItem)
+        #contextMenu.addItem_(NSMenuItem.separatorItem())
         contextMenu.addItem_(expandAllItem)
         contextMenu.addItem_(collapseAllItem)
         if item:
@@ -237,18 +246,18 @@ class PCDocument(NSDocument):
                 error = Vault.BadPasswordError
                 
                 alert = NSAlert.alloc().init()
-                alert.setMessageText_('Bad password')
-                alert.setInformativeText_('Please try again.')
+                alert.setMessageText_(NSLocalizedString("Bad password", ""))
+                alert.setInformativeText_(NSLocalizedString("Please try again.", ""))
                 alert.setAlertStyle_(NSCriticalAlertStyle)
                 alert.runModal()
             except Vault.VaultVersionError:
                 error = Vault.VaultVersionError
                 errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
-                    {NSLocalizedFailureReasonErrorKey: 'File is not a PasswordSafe V3 file.'})
+                    {NSLocalizedFailureReasonErrorKey: NSLocalizedString("File is not a PasswordSafe V3 file.", "")})
             except Vault.VaultFormatError:
                 error = Vault.VaultFormatError
                 errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
-                    {NSLocalizedFailureReasonErrorKey: 'File integrity check failed.'})
+                    {NSLocalizedFailureReasonErrorKey: NSLocalizedString("File integrity check failed.", "")})
         if vault and error is None:
             self.vault = vault
             return (True, errorInfo)
@@ -260,7 +269,7 @@ class PCDocument(NSDocument):
     def writeToURL_ofType_error_(self, url, type, errorInfo):
         if not url.isFileURL():
             errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
-                    {NSLocalizedFailureReasonErrorKey: 'Invalid file URL.'})
+                {NSLocalizedFailureReasonErrorKey: NSLocalizedString("Invalid file URL.", "")})
             return (False, errorInfo)
         
         if self.isNewFile and self.password is None:
@@ -271,7 +280,7 @@ class PCDocument(NSDocument):
             if pw is None:
                 # user pressed cancel
                 errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
-                    {NSLocalizedFailureReasonErrorKey: 'Password entry aborted.'})
+                    {NSLocalizedFailureReasonErrorKey: NSLocalizedString("Password entry aborted.", "")})
                 return (False, errorInfo)
             self.password = pw
         self.isNewFile = False
@@ -280,7 +289,7 @@ class PCDocument(NSDocument):
             return (True, errorInfo)
         except Vault.VaultFormatError:
             errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
-                    {NSLocalizedFailureReasonErrorKey: 'File integrity check failed.'})
+                    {NSLocalizedFailureReasonErrorKey: NSLocalizedString("File integrity check failed.", "")})
             return (False, errorInfo)
         except:
             return (False, errorInfo)
@@ -361,7 +370,8 @@ class PCDocument(NSDocument):
         passwordDialogController = PasswordDialogController.alloc().init()
         pw = ''
         while pw == '':
-            pw = passwordDialogController.requestNewPassword(self.fileURL() and os.path.basename(self.fileURL().path()) or 'Untitled')
+            pw = passwordDialogController.requestNewPassword(
+                self.fileURL() and os.path.basename(self.fileURL().path()) or NSLocalizedString("Untitled", ""))
         if pw is None:
             # user pressed cancel
             return
@@ -384,8 +394,10 @@ class PCDocument(NSDocument):
                 attrString = NSMutableAttributedString.alloc().initWithString_(record._get_url())
                 range = NSMakeRange(0, attrString.length());
                 attrString.beginEditing()
-                attrString.addAttribute_value_range_(NSForegroundColorAttributeName, NSColor.blueColor(), range)
-                attrString.addAttribute_value_range_(NSUnderlineStyleAttributeName, NSNumber.numberWithInt_(NSSingleUnderlineStyle), range)
+                attrString.addAttribute_value_range_(
+                    NSForegroundColorAttributeName, NSColor.blueColor(), range)
+                attrString.addAttribute_value_range_(
+                    NSUnderlineStyleAttributeName, NSNumber.numberWithInt_(NSSingleUnderlineStyle), range)
                 attrString.endEditing()
                 
                 self.urlButton.setAttributedTitle_(attrString)
@@ -395,7 +407,8 @@ class PCDocument(NSDocument):
                 self.urlButton.cell().disableHandCursor()
             
             self.notesLabel.setStringValue_(record._get_notes() or '--')
-            self.lastModifiedLabel.setStringValue_(record._get_last_mod() and time.strftime('%c', time.gmtime(record._get_last_mod())) or '--')
+            self.lastModifiedLabel.setStringValue_(
+                record._get_last_mod() and time.strftime('%c', time.gmtime(record._get_last_mod())) or '--')
             
             self.infoView.setHidden_(False)
             self.logoView.setHidden_(True)

@@ -2,27 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SUFeedURL</key>
-	<string>http://bitgarten.ch/projects/passwordchest/updates/</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>passwordchest.pub</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>*</string>
+				<string>psafe3</string>
 			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/octet-stream</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>Password Safe V3 file</string>
 			<key>CFBundleTypeIconFile</key>
 			<string>chest-document.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Password Safe V3 file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
@@ -48,12 +40,14 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>0.1</string>
+	<string>PWCH</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>http://bitgarten.ch/projects/passwordchest/updates/</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>passwordchest.pub</string>
 </dict>
 </plist>

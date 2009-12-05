@@ -66,13 +66,13 @@ class PasswordDialogController(NSObject):
     
     def requestPassword(self, filename):
         self._setForm(self.passwordCheckForm)
-        self.titleLabel.setStringValue_('Password Chest wants to open the "%s" password safe.' % filename)
-        self.descriptionLabel.setStringValue_('Please enter the password.')
+        self.titleLabel.setStringValue_(NSLocalizedString("Password Chest wants to open the \"%s\" password safe.", "") % filename)
+        self.descriptionLabel.setStringValue_(NSLocalizedString("Please enter the password.", ""))
         return self._showDialog()
     
     def requestNewPassword(self, filename):
         self._setForm(self.passwordDefineForm)
-        self.titleLabel.setStringValue_('Enter a new password for the password safe "%s".' % filename)
+        self.titleLabel.setStringValue_(NSLocalizedString("Enter a new password for the password safe \"%s\".", "") % filename)
         self.descriptionLabel.setStringValue_('')
         return self._showDialog()
     
@@ -123,8 +123,8 @@ class PasswordDefineForm(PasswordForm):
     def isValid(self):
         if self.passwordField.stringValue() != self.passwordVerifyField.stringValue():
             errorInfo = NSError.errorWithDomain_code_userInfo_('PCError', -1,
-                {NSLocalizedDescriptionKey: 'Your password is not the same as the verify password.',
-                 NSLocalizedRecoverySuggestionErrorKey: 'Try entering your information again.'})
+                {NSLocalizedDescriptionKey: NSLocalizedString("Your password is not the same as the verify password.", ""),
+                 NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("Try entering your information again.", "")})
             return (False, errorInfo)
         return (True, None)
     

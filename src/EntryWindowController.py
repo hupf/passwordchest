@@ -66,7 +66,7 @@ class EntryWindowController(NSObject):
         self.record = None
         self._updateGroupCombo()
         self._resetFields()
-        self.okButton.setTitle_('Add')
+        self.okButton.setTitle_(NSLocalizedString("Add", ""))
         
         index = self.document.outlineView.selectedRow()
         if index != -1:
@@ -82,7 +82,7 @@ class EntryWindowController(NSObject):
         self.record = record
         self._updateGroupCombo()
         self._fillFieldsFromRecord()
-        self.okButton.setTitle_('Save')
+        self.okButton.setTitle_(NSLocalizedString("Save", ""))
         
         self._showDialog()
     
@@ -196,13 +196,13 @@ class EntryWindowController(NSObject):
     def ok_(self, sender):
         if self.groupCombo.stringValue() == '':
             alert = NSAlert.alloc().init()
-            alert.setMessageText_('Group name may not be empty')
+            alert.setMessageText_(NSLocalizedString("Group name may not be empty", ""))
             alert.setAlertStyle_(NSCriticalAlertStyle)
             alert.runModal()
             return
         if self.titleField.stringValue() == '':
             alert = NSAlert.alloc().init()
-            alert.setMessageText_('Title may not be empty')
+            alert.setMessageText_(NSLocalizedString("Title may not be empty", ""))
             alert.setAlertStyle_(NSCriticalAlertStyle)
             alert.runModal()
             return

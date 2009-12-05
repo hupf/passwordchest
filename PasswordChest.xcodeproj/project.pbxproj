@@ -16,6 +16,7 @@
 		3B1ED5A9106FDA820056082F /* twofish_cbc.py in Copy twofish */ = {isa = PBXBuildFile; fileRef = 3BE6A008106EBCDD0034E04A /* twofish_cbc.py */; };
 		3B1ED5AA106FDA820056082F /* twofish_ecb.py in Copy twofish */ = {isa = PBXBuildFile; fileRef = 3BE6A009106EBCDD0034E04A /* twofish_ecb.py */; };
 		3B387B7F106D76390081CC64 /* PCDataSource.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B387B7E106D76390081CC64 /* PCDataSource.py */; };
+		3B4AA5DC10CABEC100BB1028 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B4AA5DA10CABEC100BB1028 /* Localizable.strings */; };
 		3B4D2B2710AD7FD600DC23DE /* PasswordChestAppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */; };
 		3B4D2B2D10AD807F00DC23DE /* PasswordDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */; };
 		3B4D2B2F10AD808F00DC23DE /* PasswordGenerator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B2E10AD808F00DC23DE /* PasswordGenerator.xib */; };
@@ -99,6 +100,12 @@
 		3B1ED584106FD56C0056082F /* __init__.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = __init__.py; path = ../passwordchest/src/__init__.py; sourceTree = SOURCE_ROOT; };
 		3B1ED59C106FD8790056082F /* vault.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vault.py; sourceTree = "<group>"; };
 		3B387B7E106D76390081CC64 /* PCDataSource.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PCDataSource.py; path = src/PCDataSource.py; sourceTree = "<group>"; };
+		3B4AA51B10CA9E0C00BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = ../passwordchest/German.lproj/EntryWindow.xib; sourceTree = SOURCE_ROOT; };
+		3B4AA51D10CA9EEC00BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PasswordGenerator.xib; sourceTree = "<group>"; };
+		3B4AA52010CA9F6B00BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = ../passwordchest/German.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
+		3B4AA52510CAA0A500BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		3B4AA5DB10CABEC100BB1028 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = ../passwordchest/English.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		3B4AA5DD10CABEDC00BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = ../passwordchest/German.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordChestAppDelegate.py; path = ../passwordchest/src/PasswordChestAppDelegate.py; sourceTree = SOURCE_ROOT; };
 		3B4D2B3E10AD820700DC23DE /* PCSplitView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PCSplitView.py; path = ../passwordchest/src/PCSplitView.py; sourceTree = SOURCE_ROOT; };
 		3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../passwordchest/lib/Sparkle.framework; sourceTree = SOURCE_ROOT; };
@@ -107,6 +114,8 @@
 		3B6267B710A5D679000E18D6 /* PreferencesWindowController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PreferencesWindowController.py; path = ../passwordchest/src/PreferencesWindowController.py; sourceTree = SOURCE_ROOT; };
 		3B6267DD10A5DF5E000E18D6 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Defaults.plist; path = ../passwordchest/Defaults.plist; sourceTree = SOURCE_ROOT; };
 		3B62E5B3108B74B800F698EE /* util.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = util.py; path = src/util.py; sourceTree = "<group>"; };
+		3B7BCF1710CA982400E65C41 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PCDocument.xib; sourceTree = "<group>"; };
+		3B7BCF1F10CA9A2400E65C41 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = ../passwordchest/German.lproj/PasswordDialog.xib; sourceTree = "<group>"; };
 		3BA9645A106D70D500C66D59 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = /Users/hupf/Development/passwordchest/lib/BWToolkitFramework.framework; sourceTree = "<absolute>"; };
 		3BA964C1106D71BA00C66D59 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PCDocument.xib; sourceTree = "<group>"; };
 		3BA964C4106D71D200C66D59 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../passwordchest/English.lproj/EntryWindow.xib; sourceTree = SOURCE_ROOT; };
@@ -216,6 +225,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B4AA5DA10CABEC100BB1028 /* Localizable.strings */,
 				77C8C1F70C07829500965286 /* MainMenu.xib */,
 				3BA964C0106D71BA00C66D59 /* PCDocument.xib */,
 				3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */,
@@ -337,6 +347,7 @@
 				3B4D2B3F10AD820700DC23DE /* PCSplitView.py in Resources */,
 				3B4D2BD110ADC3FD00DC23DE /* passwordchest.pub in Resources */,
 				3BB0C1E410C2E1AC00B2AC22 /* PasswordGeneratorController.py in Resources */,
+				3B4AA5DC10CABEC100BB1028 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,10 +373,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		3B4AA5DA10CABEC100BB1028 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B4AA5DB10CABEC100BB1028 /* English */,
+				3B4AA5DD10CABEDC00BB1028 /* German */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		3B4D2B2C10AD807F00DC23DE /* PasswordDialog.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3B1ED4CE106F91400056082F /* English */,
+				3B7BCF1F10CA9A2400E65C41 /* German */,
 			);
 			name = PasswordDialog.xib;
 			sourceTree = "<group>";
@@ -374,6 +395,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3BE69F54106E6F250034E04A /* English */,
+				3B4AA51D10CA9EEC00BB1028 /* German */,
 			);
 			name = PasswordGenerator.xib;
 			sourceTree = "<group>";
@@ -382,6 +404,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3B6267AE10A5CAE7000E18D6 /* English */,
+				3B4AA52010CA9F6B00BB1028 /* German */,
 			);
 			name = PreferencesWindow.xib;
 			sourceTree = "<group>";
@@ -390,6 +413,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3BA964C1106D71BA00C66D59 /* English */,
+				3B7BCF1710CA982400E65C41 /* German */,
 			);
 			name = PCDocument.xib;
 			sourceTree = "<group>";
@@ -398,6 +422,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3BA964C4106D71D200C66D59 /* English */,
+				3B4AA51B10CA9E0C00BB1028 /* German */,
 			);
 			name = EntryWindow.xib;
 			sourceTree = "<group>";
@@ -414,6 +439,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				77C8C1F80C07829500965286 /* English */,
+				3B4AA52510CAA0A500BB1028 /* German */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
