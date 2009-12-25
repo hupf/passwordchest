@@ -93,6 +93,7 @@ class EntryWindowController(NSObject):
         groups = []
         map(lambda r: groups.append(r._get_group()), self.vault.records)
         groups = dict.fromkeys(groups).keys()
+        groups.sort()
         
         self.groupCombo.removeAllItems()
         for group in groups:
