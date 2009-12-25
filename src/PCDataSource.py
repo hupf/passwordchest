@@ -210,16 +210,16 @@ class PCDataSource(NSObject, NSOutlineViewDataSource):
         self.document.updateChangeCount_(NSChangeDone)
     
     def updateFilter_(self, filterString):
-        self.filterString = filterString
+        self.filterString = filterString.lower()
         self.filteredNodes = {}
         for g in self.nodes.keys():
             groupNodes = []
             for r in self.nodes[g]:
-                if filterString in r.record._get_group() or \
-                    filterString in r.record._get_title() or \
-                    filterString in r.record._get_user() or \
-                    filterString in r.record._get_url() or \
-                    filterString in r.record._get_notes():
+                if filterString in r.record._get_group().lower() or \
+                    filterString in r.record._get_title().lower() or \
+                    filterString in r.record._get_user().lower() or \
+                    filterString in r.record._get_url().lower() or \
+                    filterString in r.record._get_notes().lower():
                     groupNodes.append(r)
             if len(groupNodes):
                 self.filteredNodes[g] = groupNodes
