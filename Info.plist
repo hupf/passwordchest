@@ -48,6 +48,6 @@
 	<key>SUFeedURL</key>
 	<string>http://bitgarten.ch/projects/passwordchest/updates/</string>
 	<key>SUPublicDSAKeyFile</key>
-	<string>passwordchest.pub</string>
+	<string>dsa_pub.pem</string>
 </dict>
 </plist>

@@ -24,10 +24,10 @@
 		3B4D2B3F10AD820700DC23DE /* PCSplitView.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2B3E10AD820700DC23DE /* PCSplitView.py */; };
 		3B4D2BBE10ADC1FE00DC23DE /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */; };
 		3B4D2BC710ADC22900DC23DE /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */; };
-		3B4D2BD110ADC3FD00DC23DE /* passwordchest.pub in Resources */ = {isa = PBXBuildFile; fileRef = 3B4D2BD010ADC3FD00DC23DE /* passwordchest.pub */; };
 		3B6267B810A5D679000E18D6 /* PreferencesWindowController.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B6267B710A5D679000E18D6 /* PreferencesWindowController.py */; };
 		3B6267DE10A5DF5E000E18D6 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B6267DD10A5DF5E000E18D6 /* Defaults.plist */; };
 		3B62E5B4108B74B800F698EE /* util.py in Resources */ = {isa = PBXBuildFile; fileRef = 3B62E5B3108B74B800F698EE /* util.py */; };
+		3B90CCCB10E6192F001DA845 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3B90CCCA10E6192F001DA845 /* dsa_pub.pem */; };
 		3BA9645B106D70D500C66D59 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA9645A106D70D500C66D59 /* BWToolkitFramework.framework */; };
 		3BA964BF106D718C00C66D59 /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA9645A106D70D500C66D59 /* BWToolkitFramework.framework */; };
 		3BA964C2106D71BA00C66D59 /* PCDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA964C0106D71BA00C66D59 /* PCDocument.xib */; };
@@ -109,13 +109,13 @@
 		3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordChestAppDelegate.py; path = ../passwordchest/src/PasswordChestAppDelegate.py; sourceTree = SOURCE_ROOT; };
 		3B4D2B3E10AD820700DC23DE /* PCSplitView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PCSplitView.py; path = ../passwordchest/src/PCSplitView.py; sourceTree = SOURCE_ROOT; };
 		3B4D2BBD10ADC1FE00DC23DE /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../passwordchest/lib/Sparkle.framework; sourceTree = SOURCE_ROOT; };
-		3B4D2BD010ADC3FD00DC23DE /* passwordchest.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = passwordchest.pub; path = ../passwordchest/passwordchest.pub; sourceTree = SOURCE_ROOT; };
 		3B6267AE10A5CAE7000E18D6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../passwordchest/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
 		3B6267B710A5D679000E18D6 /* PreferencesWindowController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PreferencesWindowController.py; path = ../passwordchest/src/PreferencesWindowController.py; sourceTree = SOURCE_ROOT; };
 		3B6267DD10A5DF5E000E18D6 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Defaults.plist; path = ../passwordchest/Defaults.plist; sourceTree = SOURCE_ROOT; };
 		3B62E5B3108B74B800F698EE /* util.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = util.py; path = src/util.py; sourceTree = "<group>"; };
 		3B7BCF1710CA982400E65C41 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PCDocument.xib; sourceTree = "<group>"; };
 		3B7BCF1F10CA9A2400E65C41 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = ../passwordchest/German.lproj/PasswordDialog.xib; sourceTree = "<group>"; };
+		3B90CCCA10E6192F001DA845 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = ../passwordchest/dsa_pub.pem; sourceTree = SOURCE_ROOT; };
 		3BA9645A106D70D500C66D59 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = /Users/hupf/Development/passwordchest/lib/BWToolkitFramework.framework; sourceTree = "<absolute>"; };
 		3BA964C1106D71BA00C66D59 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PCDocument.xib; sourceTree = "<group>"; };
 		3BA964C4106D71D200C66D59 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../passwordchest/English.lproj/EntryWindow.xib; sourceTree = SOURCE_ROOT; };
@@ -236,7 +236,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				3B6267DD10A5DF5E000E18D6 /* Defaults.plist */,
 				3BAE8A87107FBC180071CE06 /* Credits.rtf */,
-				3B4D2BD010ADC3FD00DC23DE /* passwordchest.pub */,
+				3B90CCCA10E6192F001DA845 /* dsa_pub.pem */,
 				3BAE89E0107F96E10071CE06 /* chest.icns */,
 				3BAE8ABC107FDDDD0071CE06 /* chest-document.icns */,
 			);
@@ -345,9 +345,9 @@
 				3B6267DE10A5DF5E000E18D6 /* Defaults.plist in Resources */,
 				3B4D2B2710AD7FD600DC23DE /* PasswordChestAppDelegate.py in Resources */,
 				3B4D2B3F10AD820700DC23DE /* PCSplitView.py in Resources */,
-				3B4D2BD110ADC3FD00DC23DE /* passwordchest.pub in Resources */,
 				3BB0C1E410C2E1AC00B2AC22 /* PasswordGeneratorController.py in Resources */,
 				3B4AA5DC10CABEC100BB1028 /* Localizable.strings in Resources */,
+				3B90CCCB10E6192F001DA845 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
