@@ -10,4 +10,4 @@ native Mac OS X user experience.
 Password Chest is free software, licensed under the terms of the GNU
 General Public License v2.
 
-Copyright Mathis Hofer, 2009
+Copyright Mathis Hofer, 2009-2010

@@ -3,7 +3,7 @@
 #  Password Chest
 #
 #  Created by Mathis Hofer on 25.09.09.
-#  Copyright Mathis Hofer 2009. All rights reserved.
+#  Copyright (c) 2009-2010 Mathis Hofer. All rights reserved.
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
