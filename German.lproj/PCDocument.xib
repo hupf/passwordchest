@@ -601,7 +601,7 @@ AGEAbABuAHkAIABwAHIAbwBmAGkAbAAgAHMAegBhAHIAbwFbAGMAaQ</bytes>
 													<object class="NSTextFieldCell" key="NSCell" id="601755468">
 														<int key="NSCellFlags">68288064</int>
 														<int key="NSCellFlags2">138413056</int>
-														<string key="NSContents">© 2009 Mathis Hofer</string>
+														<string key="NSContents">© 2009-2010 Mathis Hofer</string>
 														<reference key="NSSupport" ref="286838566"/>
 														<reference key="NSControlView" ref="796219868"/>
 														<reference key="NSBackgroundColor" ref="87458081"/>

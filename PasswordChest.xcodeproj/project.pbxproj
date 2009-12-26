@@ -104,7 +104,7 @@
 		3B4AA51D10CA9EEC00BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PasswordGenerator.xib; sourceTree = "<group>"; };
 		3B4AA52010CA9F6B00BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = ../passwordchest/German.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
 		3B4AA52510CAA0A500BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		3B4AA5DB10CABEC100BB1028 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = ../passwordchest/English.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		3B4AA5DB10CABEC100BB1028 /* English */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.plist.strings; name = English; path = ../passwordchest/English.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		3B4AA5DD10CABEDC00BB1028 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = ../passwordchest/German.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		3B4D2B2610AD7FD600DC23DE /* PasswordChestAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PasswordChestAppDelegate.py; path = ../passwordchest/src/PasswordChestAppDelegate.py; sourceTree = SOURCE_ROOT; };
 		3B4D2B3E10AD820700DC23DE /* PCSplitView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = PCSplitView.py; path = ../passwordchest/src/PCSplitView.py; sourceTree = SOURCE_ROOT; };
@@ -496,6 +496,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 			};
 			name = Debug;
 		};
