@@ -113,8 +113,8 @@ class EntryWindowController(NSObject):
         self.urlField.setStringValue_('')
         self.notesField.setString_('')
         
-        # focus title field
-        self.titleField.selectText_(self)
+        # Focus group field
+        self.groupCombo.selectText_(self)
         
     def _fillFieldsFromRecord(self):
         self._resetFields()
