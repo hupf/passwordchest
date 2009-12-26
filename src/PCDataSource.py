@@ -215,11 +215,14 @@ class PCDataSource(NSObject, NSOutlineViewDataSource):
         for g in self.nodes.keys():
             groupNodes = []
             for r in self.nodes[g]:
-                if filterString in r.record._get_group().lower() or \
-                    filterString in r.record._get_title().lower() or \
-                    filterString in r.record._get_user().lower() or \
-                    filterString in r.record._get_url().lower() or \
-                    filterString in r.record._get_notes().lower():
+                matches = True
+                for filterExpression in filterString.split(' '):
+                    matches = matches and (filterExpression in r.record._get_group().lower() or \
+                        filterExpression in r.record._get_title().lower() or \
+                        filterExpression in r.record._get_user().lower() or \
+                        filterExpression in r.record._get_url().lower() or \
+                        filterExpression in r.record._get_notes().lower())
+                if matches:
                     groupNodes.append(r)
             if len(groupNodes):
                 self.filteredNodes[g] = groupNodes

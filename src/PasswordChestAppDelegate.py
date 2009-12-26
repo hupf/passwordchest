@@ -27,6 +27,8 @@ import os
 
 
 class PasswordChestAppDelegate(NSObject):
+    copyPasswordMenuItem = IBOutlet()
+    
     def applicationDidFinishLaunching_(self, sender):
         defaultPreferencesFile = NSBundle.mainBundle().pathForResource_ofType_('Defaults', 'plist')
         defaultPreferences = NSDictionary.dictionaryWithContentsOfFile_(defaultPreferencesFile)

@@ -318,6 +318,7 @@ class PCDocument(NSDocument):
             elif isinstance(item, RecordGroupNode):
                 self.dataSource.removeGroup_(item)
     
+    @objc.signature('v@:s')
     def copyRecordPassword_(self, sender):
         record = None
         index = self.outlineView.selectedRow()
@@ -350,18 +351,30 @@ class PCDocument(NSDocument):
     def selectionChanged(self):
         self.updateInfo()
         self.removeButton.setEnabled_(self.outlineView.numberOfSelectedRows() != 0)
+        NSApp().delegate().copyPasswordMenuItem.setAction_(
+            self.outlineView.numberOfSelectedRows() != 0 and self.copyRecordPassword_ or None)
     
     def performFindPanelAction_(self, sender):
         self.searchField.selectText_(self)
     
     def search_(self, sender):
-        if sender == self.searchField:
-            searchString = sender.stringValue()
-            if len(searchString):
-                self.dataSource.updateFilter_(searchString)
-                self.dataSource.expandAll()
-            else:
-                self.dataSource.resetFilter()
+        searchString = self.searchField.stringValue()
+        if len(searchString):
+            self.dataSource.updateFilter_(searchString)
+            self.dataSource.expandAll()
+            
+            # Select first record (if available)
+            firstRecordIndex = -1
+            for i in range(self.outlineView.numberOfRows()):
+                if isinstance(self.outlineView.itemAtRow_(i), RecordNode):
+                    self.outlineView.deselectAll_(self)
+                    self.outlineView.selectRowIndexes_byExtendingSelection_(
+                        NSIndexSet.indexSetWithIndex_(i), False)
+                    break
+                
+        else:
+            self.dataSource.resetFilter()
+            self.outlineView.deselectAll_(self)
     
     def openPreferences_(self, sender):
         PreferencesWindowController.alloc().init()
